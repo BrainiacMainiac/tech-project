@@ -1,10 +1,10 @@
 class LogicStatements {
   public static void main(String[] argt){
     // and statements
-    for(int i = 1; i > 4; i++){
+    for(int i = 1; i < 5; i++){
       if(i == 1){
         boolean a = true;
-        boolean b = false;
+        boolean b = true;
         System.out.println(a && b);
       } else if(i == 2) {
         boolean a = true;

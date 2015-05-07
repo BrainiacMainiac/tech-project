@@ -1,3 +1,3 @@
 # tech-project-9000
-Tek Projekt 9000
-Does stuff
+Tech Project 9000
+Creates and solves a maze from a seed.

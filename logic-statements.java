@@ -20,7 +20,7 @@ class LogicStatements {
         System.out.println(a && b);
       }
     };
-    System.out.println("Or statements");
+    System.out.println("Or statements:");
     for(int i = 1; i < 5; i++){
       if(i == 1){
         boolean a = true;

@@ -2,7 +2,8 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-class TechProject extends JFrame{
+class TechProject extends JFrame implements ActionListener{
+  //Instance variables/objects which all methods must be able to see
   MazePanel maze;
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
@@ -10,6 +11,7 @@ class TechProject extends JFrame{
     TechProject proj= new TechProject();
   }
   public TechProject() {
+    //Setting up the GUI
     super("Maze Generator/Solver");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel bigpanel=new JPanel();

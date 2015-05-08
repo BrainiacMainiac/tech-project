@@ -1,4 +1,6 @@
-class TechProject {
+import javax.swing.*;
+class TechProject extends JFrame{
   public static void main(String[] args){
+    
   }
 }

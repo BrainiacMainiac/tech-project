@@ -53,6 +53,7 @@ class TechProject extends JFrame// implements ActionListener
   }
 }
 class MazePanel extends JPanel {
+  Int[][] mazeArray;
   public MazePanel() {
     super();
   }

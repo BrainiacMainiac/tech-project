@@ -24,8 +24,8 @@ class TechProject extends JFrame// implements ActionListener
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
     width.setPaintTicks(true);
-    width.setMajorTickSpacing(10);
-    height.setMajorTickSpacing(10);
+    width.setMajorTickSpacing(20);
+    height.setMajorTickSpacing(20);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};
@@ -34,20 +34,21 @@ class TechProject extends JFrame// implements ActionListener
     solvemethod=new JComboBox(solves);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
+    bottom.setLayout(new GridLayout(2,5,10,10));
     bottom.add(new JLabel("Width:"));
     bottom.add(width);
-    bottom.add(new JLabel("Height:"));
-    bottom.add(height);
     bottom.add(new JLabel("Generation Algorithm"));
     bottom.add(generatemethod);
+    bottom.add(mazebutton);
+    bottom.add(new JLabel("Height:"));
+    bottom.add(height);
     bottom.add(new JLabel("Solving Algorithm"));
     bottom.add(solvemethod);
-    bottom.add(mazebutton);
     bottom.add(solvebutton);
     bigpanel.add(maze,BorderLayout.CENTER);
     bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
-    setSize(400,400);
+    setSize(800,800);
     setVisible(true);
   }
 }

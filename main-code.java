@@ -20,24 +20,34 @@ class TechProject extends JFrame// implements ActionListener
     super("Maze Generator/Solver");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     JPanel bigpanel=new JPanel();
-    BoxLayout lay=new BoxLayout(bigpanel,BoxLayout.X_AXIS);
+    BorderLayout lay=new BorderLayout();
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
+    width.setPaintTicks(true);
+    width.setMajorTickSpacing(10);
+    height.setMajorTickSpacing(10);
     height.setPaintLabels(true);
+    height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};
     String[] solves={"Tramaux Algorithm", "A# Search", "Dead end filling"};
     generatemethod=new JComboBox(generates);
     solvemethod=new JComboBox(solves);
+    //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
+    bottom.add(new JLabel("Width:"));
     bottom.add(width);
+    bottom.add(new JLabel("Height:"));
     bottom.add(height);
+    bottom.add(new JLabel("Generation Algorithm"));
     bottom.add(generatemethod);
+    bottom.add(new JLabel("Solving Algorithm"));
     bottom.add(solvemethod);
     bottom.add(mazebutton);
     bottom.add(solvebutton);
-    bigpanel.add(maze);
-    bigpanel.add(bottom);
+    bigpanel.add(maze,BorderLayout.CENTER);
+    bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
+    setSize(400,400);
     setVisible(true);
   }
 }

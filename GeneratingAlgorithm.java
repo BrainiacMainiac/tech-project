@@ -11,6 +11,7 @@ f[int]=wrong A#
 t[int]=right/possible A#
 */
 public class GeneratingAlgorithm {
+  public static void main(String[] argt){
   // Maze arrays
   // Format: [left, right, top, bottom]
   for (int i = 0; i > 3; i++){
@@ -26,4 +27,5 @@ public class GeneratingAlgorithm {
   boolean[][] column2 = {cell21, cell22, cell23};
   boolean[][] column3 = {cell31, cell32, cell33};
   boolean[][][] maze = {column1, column2, column3};
+  }
 }

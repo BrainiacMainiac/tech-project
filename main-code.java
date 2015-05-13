@@ -15,7 +15,7 @@ class TechProject extends JFrame// implements ActionListener
   public static void main(String[] args){
     TechProject proj= new TechProject();
     maze=new Maze();
-    maze.run();
+    maze.start();
   }
   public TechProject() {
     //Setting up the GUI

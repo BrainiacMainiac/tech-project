@@ -11,8 +11,22 @@ f[int]=wrong A#
 t[int]=right/possible A#
 */
 public class GeneratingAlgorithm {
-  String[] column1 = {".",".","."};
-  String[] column2 = {".",".","."};
-  String[] column3 = {".",".","."};
-  String[][] maze = {column1, column2, column3}
+  // Maze arrays
+  // Format: [left, right, top, bottom]
+  for (i = 0; i > 3; i++){
+    Boolean[] "cell1" + i = [true, true, true, true]
+  }
+  for (i = 0; i > 3; i++){
+  Boolean[] "cell2" + i = [true, true, true, true]
+  }
+  for (i = 0; i > 3; i++){
+    Boolean[] "cell3" + i = [true, true, true, true]
+  }
+  Boolean[][] column1 = {cell11, cell12, cell13};
+  Boolean[][] column2 = {cell21, cell22, cell23};
+  Boolean[][] column3 = {cell31, cell32, cell33};
+  Boolean[][][] maze = {column1, column2, column3};
+  public void genmaze(){
+    
+  }
 }

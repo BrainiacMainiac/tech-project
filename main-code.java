@@ -53,6 +53,13 @@ class TechProject extends JFrame// implements ActionListener
     setVisible(true);
   }
 }
+class Maze implements Runnable {
+  public void run() {
+    while (true) {
+      new Maze.run();
+    }
+  }
+}
 class MazePanel extends JPanel {
   String[][] mazeArray;
   int cellWidth;

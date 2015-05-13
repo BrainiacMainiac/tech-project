@@ -14,16 +14,16 @@ public class GeneratingAlgorithm {
   // Maze arrays
   // Format: [left, right, top, bottom]
   for (int i = 0; i > 3; i++){
-    Boolean[] "cell1" + i = [true, true, true, true];
+    boolean[] "cell1" + i = [true, true, true, true];
   };
   for (int i = 0; i > 3; i++){
-  Boolean[] "cell2" + i = [true, true, true, true];
+    boolean[] "cell2" + i = [true, true, true, true];
   };
   for (int i = 0; i > 3; i++){
-    Boolean[] "cell3" + i = [true, true, true, true];
+    boolean[] "cell3" + i = [true, true, true, true];
   };
-  Boolean[][] column1 = {cell11, cell12, cell13};
-  Boolean[][] column2 = {cell21, cell22, cell23};
-  Boolean[][] column3 = {cell31, cell32, cell33};
-  Boolean[][][] maze = {column1, column2, column3};
+  boolean[][] column1 = {cell11, cell12, cell13};
+  boolean[][] column2 = {cell21, cell22, cell23};
+  boolean[][] column3 = {cell31, cell32, cell33};
+  boolean[][][] maze = {column1, column2, column3};
 }

@@ -85,5 +85,6 @@ class MazePanel extends JPanel {
     Rectangle rect=getSize();
     cellHeight=rect.height/mazeArray.length;
     cellwidth=rect.width/mazeArray[i].length;
+    for (int row=0; row<mazeArray.length; row++) {
   }
 }

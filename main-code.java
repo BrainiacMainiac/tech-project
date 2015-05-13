@@ -53,10 +53,27 @@ class TechProject extends JFrame// implements ActionListener
   }
 }
 class MazePanel extends JPanel {
-  Int[][] mazeArray;
+  String[][] mazeArray;
+  /* 
+  .=open
+  /=wall
+  +=start
+  -=end
+  *=rigth path
+  :=wrong path
+  x=dead end filled
+  f[int]=wrong A#
+  t[int]=right/possible A#
+  */
   //My dad thought the big, upper right red x only closed on tab, so he closed all my tabs and I lost about 1 hour of work.
   //The entire maze rendering code was almost finished, but then he closed it.
   public MazePanel() {
     super();
+    //this is for testing
+    mazeArray= {
+      {"/","+","."},
+      {"-",":","x"},
+      {"f4","/","t18"}
+    };
   }
 }

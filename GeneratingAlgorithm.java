@@ -13,13 +13,13 @@ t[int]=right/possible A#
 public class GeneratingAlgorithm {
   // Maze arrays
   // Format: [left, right, top, bottom]
-  for (i = 0; i > 3; i++){
+  for (int i = 0; i > 3; i++){
     Boolean[] "cell1" + i = [true, true, true, true];
   };
-  for (i = 0; i > 3; i++){
+  for (int i = 0; i > 3; i++){
   Boolean[] "cell2" + i = [true, true, true, true];
   };
-  for (i = 0; i > 3; i++){
+  for (int i = 0; i > 3; i++){
     Boolean[] "cell3" + i = [true, true, true, true];
   };
   Boolean[][] column1 = {cell11, cell12, cell13};

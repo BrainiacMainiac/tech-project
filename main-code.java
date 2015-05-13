@@ -14,6 +14,8 @@ class TechProject extends JFrame// implements ActionListener
   JComboBox solvemethod;
   public static void main(String[] args){
     TechProject proj= new TechProject();
+    maze=new Maze();
+    maze.run;()
   }
   public TechProject() {
     //Setting up the GUI

@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.graphics.*
 class TechProject extends JFrame// implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
@@ -54,6 +55,8 @@ class TechProject extends JFrame// implements ActionListener
 }
 class MazePanel extends JPanel {
   String[][] mazeArray;
+  int cellWidth;
+  int cellHeight;
   /* 
   .=open
   /=wall
@@ -67,6 +70,7 @@ class MazePanel extends JPanel {
   */
   //My dad thought the big, upper right red x only closed on tab, so he closed all my tabs and I lost about 1 hour of work.
   //The entire maze rendering code was almost finished, but then he closed it.
+  //Now commiting every 2 minutes after losing 1 HOUR of work
   public MazePanel() {
     super();
     //this is for testing
@@ -75,5 +79,11 @@ class MazePanel extends JPanel {
       {"-",":","x"},
       {"f4","/","t18"}
     };
+  }
+  public void paintComponent(Graphics g) {
+    Graphics2D graf=(Graphics2D) g;
+    Rectangle rect=getSize();
+    cellHeight=rect.height/mazeArray.length;
+    cellwidth=rect.width/mazeArray[i].length;
   }
 }

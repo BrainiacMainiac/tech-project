@@ -55,7 +55,7 @@ class TechProject extends JFrame// implements ActionListener
 class Maze implements Runnable {
   public void run() {
     while (true) {
-      new Maze.run();
+      new Maze().run();
     }
   }
 }
@@ -90,7 +90,7 @@ class MazePanel extends JPanel {
     Graphics2D graf=(Graphics2D) g;
     Dimension rect=getSize();
     cellHeight=rect.height/mazeArray.length;
-    cellWidth=rect.width/mazeArray[i].length;
+    cellWidth=rect.width/mazeArray[0].length;
     for (int row=0; row<mazeArray.length; row++) {
   }
 }

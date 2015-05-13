@@ -92,7 +92,7 @@ class MazePanel extends JPanel {
         switch (p) {
           case '/':
             //wall
-            
+            graf.setColor(Color.BLACK);
             break;
           case 'x':
             //dead end

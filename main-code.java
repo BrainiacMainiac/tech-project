@@ -14,8 +14,6 @@ class TechProject extends JFrame// implements ActionListener
   JComboBox solvemethod;
   public static void main(String[] args){
     TechProject proj= new TechProject();
-     Maze thred=new Maze();
-    new Thread().run(maze);
   }
   public TechProject() {
     //Setting up the GUI
@@ -54,13 +52,6 @@ class TechProject extends JFrame// implements ActionListener
     setVisible(true);
   }
 }
-class Maze implements Runnable {
-  public void run() {
-    while (true) {
-      new Maze().run();
-    } 
-  }
-}
 class MazePanel extends JPanel {
   String[][] mazeArray;
   int cellWidth;
@@ -94,6 +85,45 @@ class MazePanel extends JPanel {
     cellHeight=rect.height/mazeArray.length;
     cellWidth=rect.width/mazeArray[0].length;
     for (int row=0; row<mazeArray.length; row++) {
+      for (int col=0; col<mazeArray[0].length; col++) {
+        int x=col*cellHeight;
+        int y=row*cellWidth;
+        char p=mazeArray[row][col].charAt(0);
+        switch (p) {
+          case '/':
+            //wall
+            
+            break;
+          case 'x':
+            //dead end
+            
+            break;
+            case 'f':
+            //bad a# space
+            
+            break;
+            case ':':
+            //wrong path
+            
+            break;
+            case 't':
+            //possible A#
+            
+            break;
+            case '*':
+            //possible path
+            
+            break;
+            case '+':
+            //start
+            
+            break;
+            case '-':
+            //end
+            
+            break;
+        }
+      }
   }
 }
 }

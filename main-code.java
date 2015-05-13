@@ -2,7 +2,6 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.graphics.*
 class TechProject extends JFrame// implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
@@ -81,7 +80,7 @@ class MazePanel extends JPanel {
   public MazePanel() {
     super();
     //this is for testing
-    mazeArray= {
+    mazeArray= new String[][]{
       {"/","+","."},
       {"-",":","x"},
       {"f4","/","t18"}
@@ -89,9 +88,10 @@ class MazePanel extends JPanel {
   }
   public void paintComponent(Graphics g) {
     Graphics2D graf=(Graphics2D) g;
-    Rectangle rect=getSize();
+    Dimension rect=getSize();
     cellHeight=rect.height/mazeArray.length;
-    cellwidth=rect.width/mazeArray[i].length;
+    cellWidth=rect.width/mazeArray[i].length;
     for (int row=0; row<mazeArray.length; row++) {
   }
+}
 }

@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 class TechProject extends JFrame// implements ActionListener
 {
-  //Instance variables/objects which all methods must be able to see
+  // Making the window the maze will be in
   MazePanel maze=new MazePanel();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
@@ -28,6 +28,7 @@ class TechProject extends JFrame// implements ActionListener
     height.setMajorTickSpacing(20);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
+    // Option boxes
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};
     String[] solves={"Tramaux Algorithm", "A# Search", "Dead end filling"};
     generatemethod=new JComboBox(generates);
@@ -48,15 +49,18 @@ class TechProject extends JFrame// implements ActionListener
     bigpanel.add(maze,BorderLayout.CENTER);
     bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
+    // Finalizing and showing the window
     setSize(800,800);
     setVisible(true);
   }
 }
 class MazePanel extends JPanel {
+  // Maze array created here
   String[][] mazeArray;
   int cellWidth;
   int cellHeight;
   /* 
+  Key:
   .=open
   /=wall
   +=start
@@ -89,6 +93,7 @@ class MazePanel extends JPanel {
         int x=col*cellWidth;
         int y=row*cellHeight;
         char p=mazeArray[row][col].charAt(0);
+        // Rendering the maze
         switch (p) {
           case '/':
             //wall

@@ -8,8 +8,8 @@ class TechProject extends JFrame// implements ActionListener
   MazePanel maze=new MazePanel();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(2,10,200);
-  JSlider height=new JSlider(2,10,200);
+  JSlider width=new JSlider(2,200);
+  JSlider height=new JSlider(2,200);
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){
@@ -81,6 +81,7 @@ class MazePanel extends JPanel {
   }
   public void paintComponent(Graphics g) {
     Graphics2D graf=(Graphics2D) g;
+    graf.setRenderingHint(RenderingHints.Key)
     Dimension rect=getSize();
     cellHeight=rect.height/mazeArray.length;
     cellWidth=rect.width/mazeArray[0].length;
@@ -104,6 +105,8 @@ class MazePanel extends JPanel {
             //bad a# space
             graf.setColor(new Color(129,129,129));
             graf.fillRect(x,y,cellWidth,cellHeight);
+            graf.setColor(Color.RED);
+            graf.drawString()
             //show distance
             break;
             case ':':
@@ -115,6 +118,7 @@ class MazePanel extends JPanel {
             //possible A#
             graf.setColor(Color.BLUE);
             graf.fillRect(x,y,cellWidth,cellHeight);
+            graf.drawString();
             break;
             case '*':
             //possible path

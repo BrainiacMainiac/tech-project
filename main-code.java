@@ -205,5 +205,13 @@ class MazePanel extends JPanel {
     } else {
       rigth=true;
     }
+    int vGap=(Math.floor(Math.random()*cols+1)/2)*2;
+    out[horLine][hGap]=".";
+    count++;
+    if (hGap<vertLine) {
+      left=true;
+    } else {
+      rigth=true;
+    }
   }
 }

@@ -8,8 +8,8 @@ class TechProject extends JFrame// implements ActionListener
   MazePanel maze=new MazePanel();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(2,200,66);
-  JSlider height=new JSlider(2,200,66);
+  JSlider width=new JSlider(2,10,200);
+  JSlider height=new JSlider(2,10,200);
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){
@@ -24,8 +24,8 @@ class TechProject extends JFrame// implements ActionListener
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
     width.setPaintTicks(true);
-    width.setMajorTickSpacing(20);
-    height.setMajorTickSpacing(20);
+    width.setMajorTickSpacing(66);
+    height.setMajorTickSpacing(66);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};

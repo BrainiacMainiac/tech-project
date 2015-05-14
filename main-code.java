@@ -86,8 +86,8 @@ class MazePanel extends JPanel {
     cellWidth=rect.width/mazeArray[0].length;
     for (int row=0; row<mazeArray.length; row++) {
       for (int col=0; col<mazeArray[0].length; col++) {
-        int x=col*cellHeight;
-        int y=row*cellWidth;
+        int x=col*cellWidth;
+        int y=row*cellHeight;
         char p=mazeArray[row][col].charAt(0);
         switch (p) {
           case '/':
@@ -97,31 +97,39 @@ class MazePanel extends JPanel {
             break;
           case 'x':
             //dead end
-            
+            graf.setColor(Color.RED);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
             case 'f':
             //bad a# space
-            
+            graf.setColor(new Color(129,129,129));
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            //show distance
             break;
             case ':':
             //wrong path
-            
+            graf.setColor(129,129,129);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
             case 't':
             //possible A#
-            
+            graf.setColor(Color.BLUE);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
             case '*':
             //possible path
-            
+            graf.setColor(Color.RED);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
             case '+':
             //start
-            
+            graf.setColor(Color.RED);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
             case '-':
             //end
-            
+            graf.setColor(Color.RED);
+            graf.fillRect(x,y,cellWidth,cellHeight);
             break;
         }
       }

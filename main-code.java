@@ -149,4 +149,23 @@ class MazePanel extends JPanel {
       }
   }
 }
+  String[][] generateDivision(int rows,int cols) {
+    String[][] out=new String[rows][cols];
+    for (int row=0; row<rows; row++) {
+      for (col=0; col<cols; col++) {
+        if (row==0 || col==0 || row==rows-1 || col==cols-1) {
+          out[row][col]="/";
+        } else {
+          out[row][col]=".";
+        }
+      }
+    }
+    String[][] ret=generate(rows-2,cols-2);
+    for (int row=1; row<rows-1; row++) {
+      for (col=1; col<cols-1; col++) {
+        out[row][col]=ret[row][col];
+      }
+    }
+    mazeArray=out;
+  }
 }

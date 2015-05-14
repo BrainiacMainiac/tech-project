@@ -83,6 +83,8 @@ class MazePanel extends JPanel {
     Graphics2D graf=(Graphics2D) g;
     graf.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
     Dimension rect=getSize();
+    Font font=new Font("dfg",Font.PLAIN, 12);
+    graf.setFont(font);
     cellHeight=rect.height/mazeArray.length;
     cellWidth=rect.width/mazeArray[0].length;
     
@@ -107,7 +109,10 @@ class MazePanel extends JPanel {
             graf.setColor(new Color(129,129,129));
             graf.fillRect(x,y,cellWidth,cellHeight);
             graf.setColor(Color.RED);
-            //graf.drawString()
+            FontMetrics met=getFontMetrics(font);
+            int a=x + (cellWidth - met.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
+            int b=y + (cellHeight/2);
+            graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),a,b);
             //show distance
             break;
             case ':':
@@ -119,6 +124,11 @@ class MazePanel extends JPanel {
             //possible A#
             graf.setColor(Color.BLUE);
             graf.fillRect(x,y,cellWidth,cellHeight);
+            graf.setColor(Color.RED);
+            FontMetrics mat=getFontMetrics(font);
+            int c=x + (cellWidth - mat.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
+            int d=y + (cellHeight/2);
+            graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),c,d);
             break;
             case '*':
             //possible path

@@ -168,4 +168,42 @@ class MazePanel extends JPanel {
     }
     mazeArray=out;
   }
+  public String[][] generate(int rows, int cols) {
+    Strng[][] out=new String[rows][cols];
+    for (int i=0; i<rows; i++) {
+      for (int a=0; a<cols; a++) {
+        out[i][a]=".";
+      }
+    }
+    if (rows==1 || cols==1) {
+      return out;
+    }
+    int vetrLine=0;
+    int horLine=0;
+    if (rows>2) {
+      horLine=Math.floor(Math.random()*((rows-1)/2))*2-1;
+      for (int i=0; i<cols; i++) {
+        out[horline][i]="/";
+      }
+    }
+    if (cols>2) {
+      vertLine=Math.floor(Math.random()*((clos-1)/2))*2-1;
+      for (int i=0; i<rows; i++) {
+        out[i][vertLine]="/";
+      }
+    }
+    int count=0;
+    boolean up=false;
+    boolean down=false;
+    boolean left=false;
+    boolean right=false;
+    int hGap=(Math.floor(Math.random()*cols+1)/2)*2;
+    out[horLine][hGap]=".";
+    count++;
+    if (hGap<vertLine) {
+      left=true;
+    } else {
+      rigth=true;
+    }
+  }
 }

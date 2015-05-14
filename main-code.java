@@ -8,8 +8,8 @@ class TechProject extends JFrame// implements ActionListener
   MazePanel maze=new MazePanel();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(2,200,33);
-  JSlider height=new JSlider(2,200,33);
+  JSlider width=new JSlider(2,200,66);
+  JSlider height=new JSlider(2,200,66);
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){

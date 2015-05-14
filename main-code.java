@@ -81,10 +81,11 @@ class MazePanel extends JPanel {
   }
   public void paintComponent(Graphics g) {
     Graphics2D graf=(Graphics2D) g;
-    graf.setRenderingHint(RenderingHints.Key)
+    graf.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
     Dimension rect=getSize();
     cellHeight=rect.height/mazeArray.length;
     cellWidth=rect.width/mazeArray[0].length;
+    
     for (int row=0; row<mazeArray.length; row++) {
       for (int col=0; col<mazeArray[0].length; col++) {
         int x=col*cellWidth;
@@ -106,7 +107,7 @@ class MazePanel extends JPanel {
             graf.setColor(new Color(129,129,129));
             graf.fillRect(x,y,cellWidth,cellHeight);
             graf.setColor(Color.RED);
-            graf.drawString()
+            //graf.drawString()
             //show distance
             break;
             case ':':
@@ -118,7 +119,6 @@ class MazePanel extends JPanel {
             //possible A#
             graf.setColor(Color.BLUE);
             graf.fillRect(x,y,cellWidth,cellHeight);
-            graf.drawString();
             break;
             case '*':
             //possible path

@@ -93,6 +93,7 @@ class MazePanel extends JPanel {
           case '/':
             //wall
             graf.setColor(Color.BLACK);
+            graf.drawRectangle(x,y,cellWidth,cellHeight);
             break;
           case 'x':
             //dead end

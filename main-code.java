@@ -181,11 +181,11 @@ class MazePanel extends JPanel {
     }
     int vertLine=0;
     int horLine=0;
-      horLine=Math.floor(Math.random()*((rows-1)/2))*2-1;
+      horLine=Math.floor(Math.floor(Math.random()*((rows-1)/2))*2-2);
       for (int i=0; i<cols; i++) {
         out[horLine][i]="/";
     }
-      vertLine=Math.floor(Math.random()*((cols-1)/2))*2-1;
+      vertLine=Math.floor(Math.floor(Math.random()*((cols-1)/2))*2-2);
       for (int i=0; i<rows; i++) {
         out[i][vertLine]="/";
     }
@@ -193,14 +193,14 @@ class MazePanel extends JPanel {
     boolean down=false;
     boolean left=false;
     boolean right=false;
-    int hGap=(Math.floor(Math.random()*cols+1)/2)*2;
+    int hGap=Math.floor((Math.floor(Math.random()*cols+1)/2)*2)-1;
     out[horLine][hGap]=".";
     if (hGap<vertLine) {
       left=true;
     } else {
       right=true;
     }
-    int vGap=(Math.floor(Math.random()*rows+1)/2)*2;
+    int vGap=Math.floor((Math.floor(Math.random()*rows+1)/2)*2)-1;
     out[vGap][vertLine]=".";
     if (vGap<horLine) {
       up=true;
@@ -214,16 +214,16 @@ class MazePanel extends JPanel {
     if (!right) li.add("right");
     Collections.shuffle(li);
     if (li.get(0).equals("up")) {
-      out[(Math.floor(Math.random()*horLine+1)/2)*2][vertLine]=".";
+      out[Math.floor((Math.floor(Math.random()*horLine+1)/2)*2)-1][vertLine]=".";
     }
     if (li.get(0).equals("down")) {
-      out[(Math.floor(Math.random()*(rows-horLine)+1)/2)*2+horLine][vertLine]=".";
+      out[(Math.floor(Math.floor(Math.random()*(rows-horLine)+1)+horLine))-1][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[(Math.floor(Math.random()*vertLine+1/2))*2][horLine]=".";
+      out[Math.floor((Math.floor(Math.random()*vertLine+1/2))*2)-1][horLine]=".";
     }
     if (li.get(0).equals("right")) {
-      out[(Math.floor(Math.random()*(cols-vertLine)+1)/2)*2+vertLine][horLine]=".";
+      out[Math.floor((Math.floor(Math.random()*(cols-vertLine)+1)/2)*2+vertLine)-1][horLine]=".";
     }
     String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {

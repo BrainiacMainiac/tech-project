@@ -163,7 +163,7 @@ class MazePanel extends JPanel {
     String[][] ret=generate(rows-2,cols-2);
     for (int row=1; row<rows-1; row++) {
       for (col=1; col<cols-1; col++) {
-        out[row][col]=ret[row][col];
+        out[row+1][col+1]=ret[row][col];
       }
     }
     mazeArray=out;
@@ -192,26 +192,66 @@ class MazePanel extends JPanel {
         out[i][vertLine]="/";
       }
     }
-    int count=0;
     boolean up=false;
     boolean down=false;
     boolean left=false;
     boolean right=false;
     int hGap=(Math.floor(Math.random()*cols+1)/2)*2;
     out[horLine][hGap]=".";
-    count++;
     if (hGap<vertLine) {
       left=true;
     } else {
       rigth=true;
     }
-    int vGap=(Math.floor(Math.random()*cols+1)/2)*2;
-    out[horLine][hGap]=".";
-    count++;
-    if (hGap<vertLine) {
-      left=true;
+    int vGap=(Math.floor(Math.random()*rows+1)/2)*2;
+    out[vGap][vertLine]=".";
+    if (vGap<horLine) {
+      up=true;
     } else {
-      rigth=true;
+      down=true;
     }
+    List li=new ArrayList();
+    if (!up) li.add("up");
+    if (!down) li.add("down"):
+    if (!left) li.add("left");
+    if (!right) li.add("right");
+    Collections.shuffle(li);
+    if (li.get(0).equals("up")) {
+      out[(Math.floor(Math.random()*horLine+1/2)*2][vertLine]=".";
+    }
+    if (li.get(0).equals("down")) {
+      out[(Math.floor(Math.random()*(rows-horLine)+1/2)*2+horLine][vertLine]=".";
+    }
+    if (li.get(0).equals("left")) {
+      out[(Math.floor(Math.random()*vertLine+1/2)*2][horLine]=".";
+    }
+    if (li.get(0).equals("right")) {
+      out[(Math.floor(Math.random()*(cols-vertLine)+1/2)*2+vertLine][horLine]=".";
+    }
+    String[][] ul=generate(horLine,vertLine);
+    for (int i=0; i<horLine; i++) {
+      for (int a=0; a<vertLine; a++) {
+        out[i][a]=ul[i][a];
+      }
+    }
+    String[][] ur=generate(horLine,cols-vertLine);
+    for (int i=0; i<horLine; i++) {
+      for (int a=0; a<cols-vertLine; a++) {
+        out[i][a+horLine+1]=ur[i][a];
+      }
+    }
+    String[][] dl=generate(rows-horLine,vertLine);
+    for (int i=0; i<rows-horLine; i++) {
+      for (int a=0; a<vertLine; a++) {
+        out[i+vertLine+1][a]=dl[i][a];
+      }
+    }
+     String[][] dr=generate(rows-horLine,cols-vertLine);
+    for (int i=0; i<rows-horLine; i++) {
+      for (int a=0; a<cols-vertLine; a++) {
+        out[i+vertLine+1][a+horLine+1]=ul[i][a];
+      }
+    }
+    return out;
   }
 }

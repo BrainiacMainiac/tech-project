@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.*;
 class TechProject extends JFrame// implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
@@ -152,7 +153,7 @@ class MazePanel extends JPanel {
   String[][] generateDivision(int rows,int cols) {
     String[][] out=new String[rows][cols];
     for (int row=0; row<rows; row++) {
-      for (col=0; col<cols; col++) {
+      for (int col=0; col<cols; col++) {
         if (row==0 || col==0 || row==rows-1 || col==cols-1) {
           out[row][col]="/";
         } else {
@@ -162,14 +163,14 @@ class MazePanel extends JPanel {
     }
     String[][] ret=generate(rows-2,cols-2);
     for (int row=1; row<rows-1; row++) {
-      for (col=1; col<cols-1; col++) {
+      for (int col=1; col<cols-1; col++) {
         out[row+1][col+1]=ret[row][col];
       }
     }
     mazeArray=out;
   }
   public String[][] generate(int rows, int cols) {
-    Strng[][] out=new String[rows][cols];
+    String[][] out=new String[rows][cols];
     for (int i=0; i<rows; i++) {
       for (int a=0; a<cols; a++) {
         out[i][a]=".";
@@ -178,19 +179,15 @@ class MazePanel extends JPanel {
     if (rows==1 || cols==1) {
       return out;
     }
-    int vetrLine=0;
+    int vertLine=0;
     int horLine=0;
-    if (rows>2) {
       horLine=Math.floor(Math.random()*((rows-1)/2))*2-1;
       for (int i=0; i<cols; i++) {
-        out[horline][i]="/";
-      }
+        out[horLine][i]="/";
     }
-    if (cols>2) {
-      vertLine=Math.floor(Math.random()*((clos-1)/2))*2-1;
+      vertLine=Math.floor(Math.random()*((cols-1)/2))*2-1;
       for (int i=0; i<rows; i++) {
         out[i][vertLine]="/";
-      }
     }
     boolean up=false;
     boolean down=false;
@@ -201,7 +198,7 @@ class MazePanel extends JPanel {
     if (hGap<vertLine) {
       left=true;
     } else {
-      rigth=true;
+      right=true;
     }
     int vGap=(Math.floor(Math.random()*rows+1)/2)*2;
     out[vGap][vertLine]=".";
@@ -210,23 +207,23 @@ class MazePanel extends JPanel {
     } else {
       down=true;
     }
-    List li=new ArrayList();
+    ArrayList li=new ArrayList();
     if (!up) li.add("up");
-    if (!down) li.add("down"):
+    if (!down) li.add("down");
     if (!left) li.add("left");
     if (!right) li.add("right");
     Collections.shuffle(li);
     if (li.get(0).equals("up")) {
-      out[(Math.floor(Math.random()*horLine+1/2)*2][vertLine]=".";
+      out[(Math.floor(Math.random()*horLine+1)/2)*2][vertLine]=".";
     }
     if (li.get(0).equals("down")) {
-      out[(Math.floor(Math.random()*(rows-horLine)+1/2)*2+horLine][vertLine]=".";
+      out[(Math.floor(Math.random()*(rows-horLine)+1)/2)*2+horLine][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[(Math.floor(Math.random()*vertLine+1/2)*2][horLine]=".";
+      out[(Math.floor(Math.random()*vertLine+1/2))*2][horLine]=".";
     }
     if (li.get(0).equals("right")) {
-      out[(Math.floor(Math.random()*(cols-vertLine)+1/2)*2+vertLine][horLine]=".";
+      out[(Math.floor(Math.random()*(cols-vertLine)+1)/2)*2+vertLine][horLine]=".";
     }
     String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {

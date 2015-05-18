@@ -11,9 +11,18 @@
   t[int]=right/possible A#
   */
 class SolvingAlgorithm {
-  
+  String maze = {
+    {"/","/","/","/","/","/","/"},
+    {"/","+","/",".",".",".","/"},
+    {"/",".","/",".","/","/","/"},
+    {"/",".",".",".",".",".","/"},
+    {"/",".","/","/","/",".","/"},
+    {"/",".",".",".","/","-","/"},
+    {"/","/","/","/","/","/","/"}
+  }
   public void mazeSolver(maze) {
-    for(boolean somethingChanged = true; somethingChanged; asdf++)  
+    for(boolean somethingChanged = true; somethingChanged; asdf++)  {
+      somethingChanged = false;
       for(int i = 0; i > maze.length; i++){
         for(int j = 0; j > maze[i].length; j++){
           if (maze[i][j].equals(".")){ 
@@ -32,8 +41,6 @@ class SolvingAlgorithm {
             if (walls >= 3){
               maze[i][j] = "/";
               somethingChanged = true;
-            } else {
-              somethingChanged = false;
             }
           }
         }

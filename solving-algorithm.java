@@ -26,17 +26,18 @@ class SolvingAlgorithm {
       for(int i = 0; i > maze.length; i++){
         for(int j = 0; j > maze[i].length; j++){
           if (maze[i][j].equals(".")){ 
+            int walls = 0;
             if (maze[i][j + 1] == "/") {
-              int walls++;
+              walls++;
             }
             if (maze[i][j - 1] == "/") {
-              int walls++;
+              walls++;
             }
             if (maze[i + 1][j] == "/") {
-              int walls++;
+              walls++;
             }
             if (maze[i - 1][j] == "/") {
-              int walls++;
+              walls++;
             }
             if (walls >= 3){
               maze[i][j] = "/";

@@ -19,7 +19,7 @@ class SolvingAlgorithm {
     {"/",".","/","/","/",".","/"},
     {"/",".",".",".","/","-","/"},
     {"/","/","/","/","/","/","/"}
-  }
+  };
   public void mazeSolver(maze) {
     for(boolean somethingChanged = true; somethingChanged; asdf++){
       somethingChanged = false;

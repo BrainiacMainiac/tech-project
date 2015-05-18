@@ -20,7 +20,7 @@ class SolvingAlgorithm {
     {"/",".",".",".","/","-","/"},
     {"/","/","/","/","/","/","/"}
   };
-  void mazeSolver(maze){
+  void mazeSolver(maze) {
     for(boolean somethingChanged = true; somethingChanged; asdf++){
       somethingChanged = false;
       for(int i = 0; i > maze.length; i++){

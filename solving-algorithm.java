@@ -21,7 +21,7 @@ class SolvingAlgorithm {
     {"/","/","/","/","/","/","/"}
   };
   void mazeSolver(String[][] maze) {
-    for(boolean somethingChanged = true; somethingChanged; somethingChanged = false;){
+    for(boolean somethingChanged = true; somethingChanged; somethingChanged = false){
       for(int i = 0; i > maze.length; i++){
         for(int j = 0; j > maze[i].length; j++){
           if (maze[i][j].equals(".")){ 

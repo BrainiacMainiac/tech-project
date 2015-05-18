@@ -11,7 +11,7 @@
   t[int]=right/possible A#
   */
 class SolvingAlgorithm {
-  String maze = {
+  String[][] maze1 = {
     {"/","/","/","/","/","/","/"},
     {"/","+","/",".",".",".","/"},
     {"/",".","/",".","/","/","/"},
@@ -21,7 +21,7 @@ class SolvingAlgorithm {
     {"/","/","/","/","/","/","/"}
   }
   public void mazeSolver(maze) {
-    for(boolean somethingChanged = true; somethingChanged; asdf++)  {
+    for(boolean somethingChanged = true; somethingChanged; asdf++){
       somethingChanged = false;
       for(int i = 0; i > maze.length; i++){
         for(int j = 0; j > maze[i].length; j++){
@@ -45,5 +45,9 @@ class SolvingAlgorithm {
           }
         }
       }
+    }
+  }
+  public static void main(String[] argt){
+    mazeSolver(maze1);
   }
 }

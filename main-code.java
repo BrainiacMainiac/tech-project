@@ -6,7 +6,8 @@ import java.util.*;
 class TechProject extends JFrame implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
-  MazePanel maze=new MazePanel();
+  public MazePanel maze=new MazePanel();
+  static TechProject proj=new TechProject();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
   JSlider width=new JSlider(2,200);
@@ -14,10 +15,10 @@ class TechProject extends JFrame implements ActionListener
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){
-    TechProject proj= new TechProject();
+    int x=0;
   }
   public void actionPerformed(ActionEvent e) {
-    maze.mazeArray=maze.generateDivision(10,10);
+    maze.generateDivision(11,11);
   }
   public TechProject() {
     //Setting up the GUI
@@ -53,7 +54,7 @@ class TechProject extends JFrame implements ActionListener
     bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
     setSize(800,800);
-    maze.mazeArray=maze.generateDivision(10,10);
+    maze.generateDivision(11,11);
     setVisible(true);
   }
 }
@@ -151,24 +152,24 @@ class MazePanel extends JPanel {
       }
   }
 }
-  String[][] generateDivision(int rows,int cols) {
-    String[][] out=new String[rows][cols];
+  void generateDivision(int rows,int cols) {
+    mazeArray=new String[rows][cols];
     for (int row=0; row<rows; row++) {
       for (int col=0; col<cols; col++) {
         if (row==0 || col==0 || row==rows-1 || col==cols-1) {
-          out[row][col]="/";
+          mazeArray[row][col]="/";
         } else {
-          out[row][col]=".";
+          mazeArray[row][col]=".";
         }
       }
     }
+    repaint();
     String[][] ret=generate(rows-2,cols-2);
     for (int row=1; row<rows-1; row++) {
       for (int col=1; col<cols-1; col++) {
-        out[row+1][col+1]=ret[row][col];
+        mazeArray[row+1][col+1]=ret[row][col];
       }
     }
-     return out;
   }
   public String[][] generate(int rows, int cols) {
     String[][] out=new String[rows][cols];
@@ -182,11 +183,11 @@ class MazePanel extends JPanel {
     }
     int vertLine=0;
     int horLine=0;
-      horLine=(int) (Math.floor(Math.random()*(rows/2))/2 - 1);
+      horLine=((int)(Math.floor(Math.random()*((rows-3)/2))))*2+2;
       for (int i=0; i<cols; i++) {
         out[horLine][i]="/";
     }
-      vertLine=(int) (Math.floor(Math.random()*((cols-1)/2))*2-1);
+      vertLine=((int)(Math.floor(Math.random()*((cols-3)/2))))*2+2;
       for (int i=0; i<rows; i++) {
         out[i][vertLine]="/";
     }

@@ -221,7 +221,7 @@ class MazePanel extends JPanel {
       out[(int) (Math.floor(Math.floor(Math.random()*(rows-horLine)+1)+horLine))-1][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[(int) Math.floor((Math.floor(Math.random()*vertLine+1/2))*2)-1][horLine]=".";
+      out[(int) Math.floor((Math.floor(Math.random()*(vertLine+1)/2))*2)-1][horLine]=".";
     }
     if (li.get(0).equals("right")) {
       out[(int) Math.floor((Math.floor(Math.random()*(cols-vertLine)+1)/2)*2+vertLine)-1][horLine]=".";

@@ -178,7 +178,7 @@ class MazePanel extends JPanel {
         out[i][a]=".";
       }
     }
-    if (rows==1 || cols==1) {
+    if (rows<=1 || cols<=1) {
       return out;
     }
     int vertLine=0;

@@ -167,7 +167,7 @@ class MazePanel extends JPanel {
     String[][] ret=generate(rows-2,cols-2);
     for (int row=1; row<rows-1; row++) {
       for (int col=1; col<cols-1; col++) {
-        mazeArray[row+1][col+1]=ret[row][col];
+        mazeArray[row][col]=ret[row-1][col-1];
       }
     }
   }
@@ -227,28 +227,28 @@ class MazePanel extends JPanel {
     if (li.get(0).equals("right")) {
       out[horLine][vertLine+1 + 2*(int)(Math.random()*((cols-2-(vertLine+1))/2+1))]=".";
     }
-    String[][] ul=generate(horLine-1 ,vertLine-1);
+    String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {
       for (int a=0; a<vertLine; a++) {
         out[i][a]=ul[i][a];
       }
     }
-    String[][] ur=generate(horLine-1,cols-vertLine);
+    String[][] ur=generate(horLine,cols-vertLine-1);
     for (int i=0; i<horLine; i++) {
-      for (int a=0; a<cols-vertLine; a++) {
-        out[i][a+horLine+1]=ur[i][a];
+      for (int a=0; a<cols-vertLine-1; a++) {
+        out[i][a+vertLine+1]=ur[i][a];
       }
     }
-    String[][] dl=generate(rows-horLine,vertLine-1);
-    for (int i=0; i<rows-horLine; i++) {
+    String[][] dl=generate(rows-horLine-1,vertLine);
+    for (int i=0; i<rows-horLine-1; i++) {
       for (int a=0; a<vertLine; a++) {
-        out[i+vertLine+1][a]=dl[i][a];
+        out[i+horLine+1][a]=dl[i][a];
       }
     }
-     String[][] dr=generate(rows-horLine,cols-vertLine);
-    for (int i=0; i<rows-horLine; i++) {
-      for (int a=0; a<cols-vertLine; a++) {
-        out[i+vertLine+1][a+horLine+1]=ul[i][a];
+     String[][] dr=generate(rows-horLine-1,cols-vertLine-1);
+    for (int i=0; i<rows-horLine-1; i++) {
+      for (int a=0; a<cols-vertLine-1; a++) {
+        out[i+horLine+1][a+vertLine+1]=dr[i][a];
       }
     }
     return out;

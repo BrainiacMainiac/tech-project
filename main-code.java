@@ -18,7 +18,7 @@ class TechProject extends JFrame implements ActionListener
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
-    maze.generateDivision(11,11);
+    maze.generateDivision(29,23);
   }
   public TechProject() {
     //Setting up the GUI
@@ -37,6 +37,7 @@ class TechProject extends JFrame implements ActionListener
     String[] solves={"Tramaux Algorithm", "A# Search", "Dead end filling"};
     generatemethod=new JComboBox(generates);
     solvemethod=new JComboBox(solves);
+    mazebutton.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
     bottom.setLayout(new GridLayout(2,5,10,10));
@@ -170,6 +171,7 @@ class MazePanel extends JPanel {
         mazeArray[row][col]=ret[row-1][col-1];
       }
     }
+    repaint();
   }
   public String[][] generate(int rows, int cols) {
     String[][] out=new String[rows][cols];

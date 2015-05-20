@@ -103,6 +103,9 @@ class MazePanel extends JPanel {
             graf.setColor(Color.BLACK);
             graf.fillRect(x,y,cellWidth,cellHeight);
             break;
+          case '.':
+            graf.setColor(new Color(255,255,255));
+            graf.drawRect(x,y,cellWidth,cellHeight);
           case 'x':
             //dead end
             graf.setColor(Color.RED);
@@ -197,14 +200,14 @@ class MazePanel extends JPanel {
     boolean down=false;
     boolean left=false;
     boolean right=false;
-    int hGap=2*(int)(Math.random()*((cols-2)/2+1));
+    int hGap=2*(int)(Math.random()*(cols-1)/2);
     out[horLine][hGap]=".";
     if (hGap<vertLine) {
       left=true;
     } else {
       right=true;
     }
-    int vGap=2*(int)(Math.random()*((rows-2)/2+1));
+    int vGap=2*(int)(Math.random()*((rows-1)/2));
     out[vGap][vertLine]=".";
     if (vGap<horLine) {
       up=true;
@@ -218,16 +221,16 @@ class MazePanel extends JPanel {
     if (!right) li.add("right");
     Collections.shuffle(li);
     if (li.get(0).equals("up")) {
-      out[1 + 2*(int)(Math.random()*((horLine)/2+1))][vertLine]=".";
+      out[2*(int)(Math.random()*((horLine)/2+1))][vertLine]=".";
     }
     if (li.get(0).equals("down")) {
-      out[horLine+1 + 2*(int)(Math.random()*((rows-horLine-3)/2+1))][vertLine]=".";
+      out[horLine + 2*(int)(Math.random()*((rows-horLine-3)/2+1))][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[horLine][1 + 2*(int)(Math.random()*((vertLine)/2+1))]=".";
+      out[horLine][2*(int)(Math.random()*((vertLine)/2+1))]=".";
     }
     if (li.get(0).equals("right")) {
-      out[horLine][vertLine+1 + 2*(int)(Math.random()*((cols-2-(vertLine+1))/2+1))]=".";
+      out[horLine][vertLine + 2*(int)(Math.random()*((cols-2-(vertLine+1))/2+1))]=".";
     }
     String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {

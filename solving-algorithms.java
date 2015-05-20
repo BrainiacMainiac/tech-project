@@ -10,7 +10,7 @@
   f[int]=wrong A#
   t[int]=right/possible A#
   */
-class SolvingAlgorithm {
+class DeadEndBlockerAlgorithm {
   static String[][] maze1 = {
     {"/","/","/","/","/","/","/"},
     {"/","+","/",".",".",".","/"},
@@ -20,7 +20,7 @@ class SolvingAlgorithm {
     {"/",".",".",".","/","-","/"},
     {"/","/","/","/","/","/","/"}
   };
-  static void mazeSolver(String[][] maze) {
+  static void mazeSolver1(String[][] maze) {
     for(boolean somethingChanged = true; somethingChanged; somethingChanged = false){
       for(int i = 0; i > maze.length; i++){
         for(int j = 0; j > maze[i].length; j++){

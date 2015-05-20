@@ -18,7 +18,9 @@ class TechProject extends JFrame implements ActionListener
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
-    maze.generateDivision(29,23);
+    int wid=width.getValue()*2+1;
+    int hei=height.getValue()*2+1;
+    maze.generateDivision(wid,hei);
   }
   public TechProject() {
     //Setting up the GUI
@@ -74,9 +76,6 @@ class MazePanel extends JPanel {
   f[int]=wrong A#
   t[int]=right/possible A#
   */
-  //My dad thought the big, upper right red x only closed on tab, so he closed all my tabs and I lost about 1 hour of work.
-  //The entire maze rendering code was almost finished, but then he closed it.
-  //Now commiting every 2 minutes after losing 1 HOUR of work
   public MazePanel() {
     super();
     //this is for testing
@@ -103,9 +102,6 @@ class MazePanel extends JPanel {
             graf.setColor(Color.BLACK);
             graf.fillRect(x,y,cellWidth,cellHeight);
             break;
-          case '.':
-            graf.setColor(new Color(255,255,255));
-            graf.drawRect(x,y,cellWidth,cellHeight);
           case 'x':
             //dead end
             graf.setColor(Color.RED);
@@ -220,17 +216,18 @@ class MazePanel extends JPanel {
     if (!left) li.add("left");
     if (!right) li.add("right");
     Collections.shuffle(li);
+    Random rand=new Random();
     if (li.get(0).equals("up")) {
-      out[2*(int)(Math.random()*((horLine)/2+1))][vertLine]=".";
+      out[2*rand.nextInt((horLine-1)/2)][vertLine]=".";
     }
     if (li.get(0).equals("down")) {
-      out[horLine + 2*(int)(Math.random()*((rows-horLine-3)/2+1))][vertLine]=".";
+      out[horLine + 2*rand.nextInt((rows-horLine)/2)-1][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[horLine][2*(int)(Math.random()*((vertLine)/2+1))]=".";
+      out[horLine][2*rand.nextInt((vertLine-1)/2)]=".";
     }
     if (li.get(0).equals("right")) {
-      out[horLine][vertLine + 2*(int)(Math.random()*((cols-2-(vertLine+1))/2+1))]=".";
+      out[horLine][vertLine + 2*rand.nextInt((rows-vertLine)/2)-1]=".";
     }
     String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {

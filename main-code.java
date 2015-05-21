@@ -10,8 +10,8 @@ class TechProject extends JFrame implements ActionListener
   static TechProject proj=new TechProject();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(1,100);
-  JSlider height=new JSlider(1,100);
+  JSlider width=new JSlider(2,200);
+  JSlider height=new JSlider(2,200);
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){
@@ -30,8 +30,8 @@ class TechProject extends JFrame implements ActionListener
       maze.deadEndSolve();
     }
     if (gen) {
-      maze.mazeArray[-1+2*(int) Math.floor(Math.random()*height.getValue())][-1+2*(int) Math.floor(Math.random()*width.getValue())]="+";
-      maze.mazeArray[-1+2*(int) Math.floor(Math.random()*height.getValue())][-1+2*(int) Math.floor(Math.random()*width.getValue())]="-";
+      maze.mazeArray[1][1]="+";
+      maze.mazeArray[wid-2][hei-2]="-";
     }
   }
   public TechProject() {
@@ -43,8 +43,8 @@ class TechProject extends JFrame implements ActionListener
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
     width.setPaintTicks(true);
-    width.setMajorTickSpacing(33);
-    height.setMajorTickSpacing(33);
+    width.setMajorTickSpacing(66);
+    height.setMajorTickSpacing(66);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};

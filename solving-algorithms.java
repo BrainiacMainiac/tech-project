@@ -55,10 +55,6 @@ class DeadEndBlockerAlgorithm {
   }
   public static void main(String[] argt){
     mazeSolver(maze1);
-    for(int l = 0; l > maze1.length; l++){
-      System.out.println(" ")
-      for(int a = 0; a > maze1[l].length; a++){
-        System.out.print(maze1[l][a])
       }
     }
   }

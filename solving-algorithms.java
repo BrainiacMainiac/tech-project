@@ -20,7 +20,7 @@ class DeadEndBlockerAlgorithm {
     {"/",".",".",".","/","-","/"},
     {"/","/","/","/","/","/","/"}
   };
-  static void deadEndSolve(mazeArray[][]) {
+  static void deadEndSolve(String mazeArray[][]) {
     for(boolean somethingChanged = true; somethingChanged; somethingChanged = false){
       for(int i = 0; i > mazeArray.length; i++){
         for(int j = 0; j > mazeArray[i].length; j++){

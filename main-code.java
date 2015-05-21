@@ -18,9 +18,21 @@ class TechProject extends JFrame implements ActionListener
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
+    Object sor=e.getSource();
     int wid=width.getValue()*2+1;
     int hei=height.getValue()*2+1;
-    maze.generateDivision(wid,hei);
+    boolean gen=false;
+    if (sor==mazebutton) {
+      maze.generateDivision(wid,hei);
+      gen=true;
+    }
+    if (sor==solvebutton) {
+      maze.deadEndSolve();
+    }
+    if (gen) {
+      maze.mazeArray[-1+2*(int) Math.floor(Math.random()*height.getValue())][-1+2*(int) Math.floor(Math.random()*width.getValue())]="+";
+      maze.mazeArray[-1+2*(int) Math.floor(Math.random()*height.getValue())][-1+2*(int) Math.floor(Math.random()*width.getValue())]="-";
+    }
   }
   public TechProject() {
     //Setting up the GUI
@@ -40,6 +52,7 @@ class TechProject extends JFrame implements ActionListener
     generatemethod=new JComboBox(generates);
     solvemethod=new JComboBox(solves);
     mazebutton.addActionListener(this);
+    solvebutton.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
     bottom.setLayout(new GridLayout(2,5,10,10));
@@ -253,5 +266,35 @@ class MazePanel extends JPanel {
       }
     }
     return out;
+  }
+  public void deadEndSolve() {
+    boolean somethingChanged = true;
+    while(somethingChanged) {
+      somethingChanged = false;
+      for(int i = 0; i < mazeArray.length; i++){
+        for(int j = 0; j < mazeArray[i].length; j++){
+          if (mazeArray[i][j].equals(".")){ 
+            int walls = 0;
+            if (mazeArray[i][j + 1] == "/" || mazeArray[i][j+1] == "x") {
+              walls++;
+            }
+            if (mazeArray[i][j - 1] == "/" || mazeArray[i][j-1] == "x") {
+              walls++;
+            }
+            if (mazeArray[i + 1][j] == "/" || mazeArray[i + 1][j] == "x") {
+              walls++;
+            }
+            if (mazeArray[i - 1][j] == "/" || mazeArray[i - 1][j] == "x") {
+              walls++;
+            }
+            if (walls >= 3){
+              mazeArray[i][j] = "x";
+              somethingChanged = true;
+              repaint();
+              }
+            }
+          }
+        }
+      }
   }
 }

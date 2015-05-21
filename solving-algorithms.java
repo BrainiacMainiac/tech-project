@@ -20,27 +20,33 @@ class DeadEndBlockerAlgorithm {
     {"/",".",".",".","/","-","/"},
     {"/","/","/","/","/","/","/"}
   };
-  static void mazeSolver1(String[][] maze) {
+  static void deadEndSolve() {
     for(boolean somethingChanged = true; somethingChanged; somethingChanged = false){
-      for(int i = 0; i > maze.length; i++){
-        for(int j = 0; j > maze[i].length; j++){
-          if (maze[i][j].equals(".")){ 
+      for(int i = 0; i > mazeArray.length; i++){
+        for(int j = 0; j > mazeArray[i].length; j++){
+          if (mazeArray[i][j].equals(".")){ 
             int walls = 0;
-            if (maze[i][j + 1] == "/") {
+            if (mazeArray[i][j + 1] == "/" || mazeArray[i - 1][j] == "x") {
               walls++;
             }
-            if (maze[i][j - 1] == "/") {
+            if (mazeArray[i][j - 1] == "/" || mazeArray[i - 1][j] == "x") {
               walls++;
             }
-            if (maze[i + 1][j] == "/") {
+            if (mazeArray[i + 1][j] == "/" || mazeArray[i - 1][j] == "x") {
               walls++;
             }
-            if (maze[i - 1][j] == "/") {
+            if (mazeArray[i - 1][j] == "/" || mazeArray[i - 1][j] == "x") {
               walls++;
             }
             if (walls >= 3){
-              maze[i][j] = "/";
+              mazeArray[i][j] = "x";
               somethingChanged = true;
+              repaint();
+              try {
+                Thread.sleep(100);
+              } catch Exception e {
+              }
+              }
             }
           }
         }

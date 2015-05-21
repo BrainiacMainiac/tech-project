@@ -10,8 +10,8 @@ class TechProject extends JFrame implements ActionListener
   static TechProject proj=new TechProject();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(2,200);
-  JSlider height=new JSlider(2,200);
+  JSlider width=new JSlider(1,100);
+  JSlider height=new JSlider(1,100);
   JComboBox generatemethod;
   JComboBox solvemethod;
   public static void main(String[] args){
@@ -31,8 +31,8 @@ class TechProject extends JFrame implements ActionListener
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
     width.setPaintTicks(true);
-    width.setMajorTickSpacing(66);
-    height.setMajorTickSpacing(66);
+    width.setMajorTickSpacing(33);
+    height.setMajorTickSpacing(33);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};
@@ -196,14 +196,14 @@ class MazePanel extends JPanel {
     boolean down=false;
     boolean left=false;
     boolean right=false;
-    int hGap=2*(int)(Math.random()*(cols-1)/2);
+    int hGap=2*(int)(Math.random()*(cols+1)/2);
     out[horLine][hGap]=".";
     if (hGap<vertLine) {
       left=true;
     } else {
       right=true;
     }
-    int vGap=2*(int)(Math.random()*((rows-1)/2));
+    int vGap=2*(int)(Math.random()*((rows+1)/2));
     out[vGap][vertLine]=".";
     if (vGap<horLine) {
       up=true;
@@ -216,18 +216,17 @@ class MazePanel extends JPanel {
     if (!left) li.add("left");
     if (!right) li.add("right");
     Collections.shuffle(li);
-    Random rand=new Random();
     if (li.get(0).equals("up")) {
-      out[2*rand.nextInt((horLine-1)/2)][vertLine]=".";
+      out[2*((int)Math.random()*((horLine+1)/2))][vertLine]=".";
     }
     if (li.get(0).equals("down")) {
-      out[horLine + 2*rand.nextInt((rows-horLine)/2)-1][vertLine]=".";
+      out[horLine +1 + 2*((int)Math.random()*((rows-horLine)/2))][vertLine]=".";
     }
     if (li.get(0).equals("left")) {
-      out[horLine][2*rand.nextInt((vertLine-1)/2)]=".";
+      out[horLine][2*((int)Math.random()*((vertLine+1)/2))]=".";
     }
     if (li.get(0).equals("right")) {
-      out[horLine][vertLine + 2*rand.nextInt((rows-vertLine)/2)-1]=".";
+      out[horLine][vertLine  +1 +2*((int)Math.random()*((rows-vertLine)/2))]=".";
     }
     String[][] ul=generate(horLine,vertLine);
     for (int i=0; i<horLine; i++) {

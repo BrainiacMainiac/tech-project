@@ -18,12 +18,18 @@ class TechProject extends JFrame implements ActionListener
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
+    for (int i=0; i<maze.mazeArray.length; i++) {
+      for (int a=0; a<maze.mazeArray[0].length; a++) {
+        String s=maze.mazeArray[i][a];
+        if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
+      }
+    } 
     Object sor=e.getSource();
     int wid=width.getValue()*2+1;
     int hei=height.getValue()*2+1;
     boolean gen=false;
     if (sor==mazebutton) {
-      maze.generateDivision(wid,hei);
+      maze.generateDivision(hei,wid);
       gen=true;
     }
     if (sor==solvebutton) {
@@ -31,7 +37,7 @@ class TechProject extends JFrame implements ActionListener
     }
     if (gen) {
       maze.mazeArray[1][1]="+";
-      maze.mazeArray[wid-2][hei-2]="-";
+      maze.mazeArray[hei-2][wid-2]="-";
     }
   }
   public TechProject() {
@@ -110,6 +116,10 @@ class MazePanel extends JPanel {
         int y=row*cellHeight;
         char p=mazeArray[row][col].charAt(0);
         switch (p) {
+          case '.':
+            graf.setColor(Color.WHITE);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
           case '/':
             //wall
             graf.setColor(Color.BLACK);

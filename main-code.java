@@ -195,7 +195,7 @@ class MazePanel extends JPanel {
     }
     repaint();
   }
-  public String[][] generate(int rows, int cols) {
+public String[][] generate(int rows, int cols) {
     String[][] out=new String[rows][cols];
     for (int i=0; i<rows; i++) {
       for (int a=0; a<cols; a++) {

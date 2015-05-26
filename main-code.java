@@ -27,18 +27,14 @@ class TechProject extends JFrame implements ActionListener
     Object sor=e.getSource();
     int wid=width.getValue()*2+1;
     int hei=height.getValue()*2+1;
-    boolean gen=false;
     if (sor==mazebutton) {
-      maze.generateDivision(hei,wid);
-      gen=true;
+      maze.mode=MazePanel.GEN;
     }
     if (sor==solvebutton) {
-      maze.deadEndSolve();
+      maze.mode=MazePanel.SOLVE;
     }
-    if (gen) {
-      maze.mazeArray[1][1]="+";
-      maze.mazeArray[hei-2][wid-2]="-";
-    }
+    maze.current=new Thread(maze);
+    maze.current.start();
   }
   public TechProject() {
     //Setting up the GUI
@@ -80,10 +76,14 @@ class TechProject extends JFrame implements ActionListener
     setVisible(true);
   }
 }
-class MazePanel extends JPanel {
+class MazePanel extends JPanel implements Runnable{
   String[][] mazeArray;
   int cellWidth;
   int cellHeight;
+  Thread current;
+  final static byte GEN=0;
+  final static byte SOLVE=1;
+  byte mode;
   /* 
   .=open
   /=wall
@@ -95,6 +95,12 @@ class MazePanel extends JPanel {
   f[int]=wrong A#
   t[int]=right/possible A#
   */
+  public void run() {
+    if (mode==GEN) {
+      int wid=width.getValue()*2+1;
+      int hei=height.getValue()*2+1;
+    }
+  }
   public MazePanel() {
     super();
     //this is for testing

@@ -25,13 +25,11 @@ class TechProject extends JFrame implements ActionListener
       }
     } 
     Object sor=e.getSource();
-    int wid=width.getValue()*2+1;
-    int hei=height.getValue()*2+1;
     if (sor==mazebutton) {
-      maze.mode=MazePanel.GEN;
+      maze.mode=MazePanel.GENDIV;
     }
     if (sor==solvebutton) {
-      maze.mode=MazePanel.SOLVE;
+      maze.mode=MazePanel.DEAD_END;
     }
     maze.current=new Thread(maze);
     maze.current.start();
@@ -81,8 +79,8 @@ class MazePanel extends JPanel implements Runnable{
   int cellWidth;
   int cellHeight;
   Thread current;
-  final static byte GEN=0;
-  final static byte SOLVE=1;
+  final static byte GENDIV=0;
+  final static byte DEAD_END=1;
   byte mode;
   /* 
   .=open
@@ -96,9 +94,13 @@ class MazePanel extends JPanel implements Runnable{
   t[int]=right/possible A#
   */
   public void run() {
-    if (mode==GEN) {
-      int wid=width.getValue()*2+1;
-      int hei=height.getValue()*2+1;
+    if (mode==GENDIV) {
+      int wid=TechProject.proj.width.getValue()*2+1;
+      int hei=TechProject.proj.height.getValue()*2+1;
+      generateDivision(hei,wid);
+    }
+    if (mode==DEAD_END) {
+      deadEndSolve();
     }
   }
   public MazePanel() {
@@ -279,6 +281,22 @@ public String[][] generate(int rows, int cols) {
     for (int i=0; i<rows-horLine-1; i++) {
       for (int a=0; a<cols-vertLine-1; a++) {
         out[i+horLine+1][a+vertLine+1]=dr[i][a];
+      }
+    }
+    if (rows==mazeArray.length-2) {
+      if (li.get(1).equals("up")) {
+        System.out.println("up");
+        out[0][cols-1]="-";
+        out[0][0]="+";
+      }else if (li.get(1).equals("left")) {
+         out[0][0]="+";
+         out[rows-1][0]="-";
+      } else if (li.get(1).equals("right")){
+        out[0][cols-1]="+";
+        out[rows-1][cols-1]="-";
+      } else {
+        out[rows-1][0]="+";
+        out[rows-1][cols-1]="-";
       }
     }
     return out;

@@ -285,7 +285,6 @@ public String[][] generate(int rows, int cols) {
     }
     if (rows==mazeArray.length-2) {
       if (li.get(1).equals("up")) {
-        System.out.println("up");
         out[0][cols-1]="-";
         out[0][0]="+";
       }else if (li.get(1).equals("left")) {
@@ -324,6 +323,10 @@ public String[][] generate(int rows, int cols) {
             if (walls >= 3){
               mazeArray[i][j] = "x";
               somethingChanged = true;
+              try {
+              Thread.sleep(32000/(mazeArray.length*mazeArray[0].length));
+              } catch (Exception e) {
+              }
               repaint();
               }
             }

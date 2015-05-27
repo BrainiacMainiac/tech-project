@@ -6,14 +6,16 @@ public void generateDFS(int rows, int cols) {
         }
     }
 }
-public void DFS(int x, int y){
-    ArrayList li=new ArrayList();
+public void DFS(int x, int y) {
+    ArrayList li = new ArrayList();
     li.add("left");
     li.add("right");
     li.add("up");
     li.add("down");
     Collections.shuffle(li);
     String first = li.get(0);
-    if (first.equals("left"))
+    if (first.equals("left")) {
+        if
+    }
 }
     

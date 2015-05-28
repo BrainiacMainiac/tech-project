@@ -14,10 +14,24 @@ class TechProject extends JFrame implements ActionListener
   JSlider height=new JSlider(2,200);
   JComboBox generatemethod;
   JComboBox solvemethod;
+  JCheckBox slow=new JCheckBox("Slow Mode");
+  JButton clear=new JButton("Restore the maze");
   public static void main(String[] args){
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
+    if (e.getSource()==clear) {
+      for (int i=0; i<maze.mazeArray.length; i++) {
+      for (int a=0; a<maze.mazeArray[0].length; a++) {
+        String s=maze.mazeArray[i][a];
+        if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
+      }
+    } 
+    repaint();
+    } else {
+    mazebutton.setEnabled(false);
+    solvebutton.setEnabled(false);
+    clear.setEnabled(false);
     for (int i=0; i<maze.mazeArray.length; i++) {
       for (int a=0; a<maze.mazeArray[0].length; a++) {
         String s=maze.mazeArray[i][a];
@@ -39,6 +53,7 @@ class TechProject extends JFrame implements ActionListener
     }
     maze.current=new Thread(maze);
     maze.current.start();
+    }
   }
   public TechProject() {
     //Setting up the GUI
@@ -59,23 +74,26 @@ class TechProject extends JFrame implements ActionListener
     solvemethod=new JComboBox(solves);
     mazebutton.addActionListener(this);
     solvebutton.addActionListener(this);
+    clear.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
-    bottom.setLayout(new GridLayout(2,5,10,10));
+    bottom.setLayout(new GridLayout(2,6,10,10));
     bottom.add(new JLabel("Width:"));
     bottom.add(width);
-    bottom.add(new JLabel("Generation Algorithm"));
+    bottom.add(new JLabel("Generation Algorithm:"));
     bottom.add(generatemethod);
     bottom.add(mazebutton);
+    bottom.add(clear);
     bottom.add(new JLabel("Height:"));
     bottom.add(height);
-    bottom.add(new JLabel("Solving Algorithm"));
+    bottom.add(new JLabel("Solving Algorithm:"));
     bottom.add(solvemethod);
     bottom.add(solvebutton);
+    bottom.add(slow);
     bigpanel.add(maze,BorderLayout.CENTER);
     bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
-    setSize(800,800);
+    setSize(600,600);
     maze.generateDivision(11,11);
     setVisible(true);
   }
@@ -92,6 +110,7 @@ class MazePanel extends JPanel implements Runnable{
   final static byte TREM=4;
   final static byte A_SHARP=5;
   byte mode;
+  boolean slowmo=false;
   /* 
   .=open
   /=wall
@@ -104,6 +123,7 @@ class MazePanel extends JPanel implements Runnable{
   t[int]=right/possible A#
   */
   public void run() {
+    slowmo=TechProject.proj.slow.isSelected();
     if (mode==GENDIV) {
       int wid=TechProject.proj.width.getValue()*2+1;
       int hei=TechProject.proj.height.getValue()*2+1;
@@ -117,6 +137,9 @@ class MazePanel extends JPanel implements Runnable{
       int hei=TechProject.proj.height.getValue()*2+1;
       generateDFS(hei,wid);
     }
+    TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
   }
   public MazePanel() {
     super();
@@ -339,7 +362,7 @@ public String[][] generate(int rows, int cols) {
               mazeArray[i][j] = "x";
               somethingChanged = true;
               try {
-              Thread.sleep(32000/(mazeArray.length*mazeArray[0].length));
+              Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):50000/(mazeArray.length*mazeArray[0].length));
               } catch (Exception e) {
               }
               repaint();
@@ -365,7 +388,7 @@ public String[][] generate(int rows, int cols) {
 public void DFS(int row, int col) {
     repaint();
     try {
-    Thread.sleep(50000/(mazeArray.length*mazeArray[0].length));
+    Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):50000/(mazeArray.length*mazeArray[0].length));
     } catch (Exception e) {
     }
     ArrayList li = new ArrayList();

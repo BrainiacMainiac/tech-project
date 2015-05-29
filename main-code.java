@@ -233,47 +233,41 @@ class MazePanel extends JPanel implements Runnable{
       }
     }
     repaint();
-    String[][] ret=generate(rows-2,cols-2);
-    for (int row=1; row<rows-1; row++) {
-      for (int col=1; col<cols-1; col++) {
-        mazeArray[row][col]=ret[row-1][col-1];
-      }
-    }
+    generate(rows-2,cols-2,1,1);
     repaint();
   }
-public String[][] generate(int rows, int cols) {
-    String[][] out=new String[rows][cols];
-    for (int i=0; i<rows; i++) {
-      for (int a=0; a<cols; a++) {
-        out[i][a]=".";
-      }
-    }
+public void generate(int rows, int cols,int rowDif, int colDif) {
     if (rows<=1 || cols<=1) {
-      return out;
+      return;
     }
     int vertLine=0;
     int horLine=0;
       horLine=1 + 2*(int)(Math.random()*((rows-3)/2+1));
       for (int i=0; i<cols; i++) {
-        out[horLine][i]="/";
+        mazeArray[horLine+rowDif][i+colDif]="/";
     }
       vertLine=1 + 2*(int)(Math.random()*((cols-3)/2+1));
       for (int i=0; i<rows; i++) {
-        out[i][vertLine]="/";
+        mazeArray[i+rowDif][vertLine+colDif]="/";
+    }
+    repaint();
+    try {
+    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 20000/(mazeArray.length*mazeArray[0].length)));
+    } catch (Exception e) {
     }
     boolean up=false;
     boolean down=false;
     boolean left=false;
     boolean right=false;
     int hGap=2*(int)(Math.random()*(cols+1)/2);
-    out[horLine][hGap]=".";
+    mazeArray[horLine+rowDif][hGap+colDif]=".";
     if (hGap<vertLine) {
       left=true;
     } else {
       right=true;
     }
     int vGap=2*(int)(Math.random()*((rows+1)/2));
-    out[vGap][vertLine]=".";
+    mazeArray[vGap+rowDif][vertLine+colDif]=".";
     if (vGap<horLine) {
       up=true;
     } else {
@@ -286,57 +280,45 @@ public String[][] generate(int rows, int cols) {
     if (!right) li.add("right");
     Collections.shuffle(li);
     if (li.get(0).equals("up")) {
-      out[2*((int)Math.random()*((horLine+1)/2))][vertLine]=".";
+      mazeArray[(2*((int)Math.random()*((horLine+1)/2)))+rowDif][vertLine+colDif]=".";
     }
     if (li.get(0).equals("down")) {
-      out[horLine +1 + 2*((int)Math.random()*((rows-horLine)/2))][vertLine]=".";
+      mazeArray[(horLine +1 + 2*((int)Math.random()*((rows-horLine)/2)))+rowDif][vertLine+colDif]=".";
     }
     if (li.get(0).equals("left")) {
-      out[horLine][2*((int)Math.random()*((vertLine+1)/2))]=".";
+      mazeArray[horLine+rowDif][(2*((int)Math.random()*((vertLine+1)/2)))+colDif]=".";
     }
     if (li.get(0).equals("right")) {
-      out[horLine][vertLine  +1 +2*((int)Math.random()*((rows-vertLine)/2))]=".";
+      mazeArray[horLine+rowDif][(vertLine  +1 +2*((int)Math.random()*((rows-vertLine)/2)))+colDif]=".";
     }
-    String[][] ul=generate(horLine,vertLine);
-    for (int i=0; i<horLine; i++) {
-      for (int a=0; a<vertLine; a++) {
-        out[i][a]=ul[i][a];
-      }
+    repaint();
+    try {
+    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 20000/(mazeArray.length*mazeArray[0].length)));
+    } catch (Exception e) {
     }
-    String[][] ur=generate(horLine,cols-vertLine-1);
-    for (int i=0; i<horLine; i++) {
-      for (int a=0; a<cols-vertLine-1; a++) {
-        out[i][a+vertLine+1]=ur[i][a];
-      }
-    }
-    String[][] dl=generate(rows-horLine-1,vertLine);
-    for (int i=0; i<rows-horLine-1; i++) {
-      for (int a=0; a<vertLine; a++) {
-        out[i+horLine+1][a]=dl[i][a];
-      }
-    }
-     String[][] dr=generate(rows-horLine-1,cols-vertLine-1);
-    for (int i=0; i<rows-horLine-1; i++) {
-      for (int a=0; a<cols-vertLine-1; a++) {
-        out[i+horLine+1][a+vertLine+1]=dr[i][a];
-      }
-    }
+    generate(horLine,vertLine,rowDif,colDif);
+    repaint();
+    generate(horLine,cols-vertLine-1,rowDif,colDif+vertLine+1);
+    repaint();
+    generate(rows-horLine-1,vertLine,rowDif+horLine+1,colDif);
+    repaint();
+    generate(rows-horLine-1,cols-vertLine-1,rowDif+horLine+1,colDif+vertLine+1);
+    repaint();
     if (rows==mazeArray.length-2) {
       if (li.get(1).equals("up")) {
-        out[0][cols-1]="-";
-        out[0][0]="+";
+        mazeArray[1][cols]="-";
+        mazeArray[1][1]="+";
       }else if (li.get(1).equals("left")) {
-         out[0][0]="+";
-         out[rows-1][0]="-";
+         mazeArray[1][1]="+";
+         mazeArray[rows][1]="-";
       } else if (li.get(1).equals("right")){
-        out[0][cols-1]="+";
-        out[rows-1][cols-1]="-";
+        mazeArray[1][cols]="+";
+        mazeArray[rows][cols]="-";
       } else {
-        out[rows-1][0]="+";
-        out[rows-1][cols-1]="-";
+        mazeArray[rows][1]="+";
+        mazeArray[rows][cols]="-";
       }
     }
-    return out;
   }
   public void deadEndSolve() {
     boolean somethingChanged = true;

@@ -413,3 +413,76 @@ public void DFS(int row, int col) {
 }
     
 }
+public class ASharp {
+  ArrayList children=new ArrayList();
+  int row,col,dist;
+  boolean valid=true;
+  static boolean changed=true;
+  public ASharp(int x,int y, int fromStart) {
+    row=x;
+    col=y;
+    dist=fromStart;
+    valid=true;
+  }
+  public boolean step() {
+    boolean isValid=false;
+    if (children.length==0) {
+      if (row!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals(".")) {
+        children.add(new ASharp(row,col-2,dist+1));
+        isValid=true;
+        changed=true;
+        TechProject.proj.maze.mazeArray[row][col-2]="t" + (dist+2);
+        TechProject.proj.maze.mazeArray[row][col-1]="t" + (dist+1);
+      }
+      if (row!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals(".")) {
+        children.add(new ASharp(row,col+2,dist+1));
+        isValid=true;
+        changed=true;
+        TechProject.proj.maze.mazeArray[row][col+2]="t" + (dist+2);
+        TechProject.proj.maze.mazeArray[row][col+1]="t" + (dist+1);
+      }
+      if (col!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals(".")) {
+        children.add(new ASharp(row-2,col,dist+1));
+        isValid=true;
+        changed=true;
+        TechProject.proj.maze.mazeArray[row-2][col]="t" + (dist+2);
+        TechProject.proj.maze.mazeArray[row-1][col]="t" + (dist+1);
+      }
+      if (row!=TechProject.proj.maze.mazeArray.length && TechProject.proj.maze.mazeArray[row+2][col].equals(".")) {
+        children.add(new ASharp(row+2,col,dist+1));
+        isValid=true;
+        changed=true;
+        TechProject.proj.maze.mazeArray[row+2][col]="t" + (dist+2);
+        TechProject.proj.maze.mazeArray[row+1][col]="t" + (dist+1);
+      }
+    } else {
+    for (int i=0; i<children.length;i++) {
+      if (children[i].valid && children[i].step()) isValid=true;
+    }
+    }
+    if ((row!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals("-")) || (row!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals("-")) || (col!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals("-")) || (row!=TechProject.proj.maze.mazeArray.length && TechProject.proj.maze.mazeArray[row+2][col].equals("-"))) isValid=true;
+    if (isValid) {
+      TechProject.proj.maze.mazeArray[row][col]="t" + dist;
+    } else {
+      TechProject.proj.maze.mazeArray[row][col]="f"+dist;
+    }
+    repaint();
+    valid=isValid;
+    return isValid;
+  }
+  public void ASharpSolve() {
+    ASharp start;
+    for (int i=0; i<TechProject.proj.maze.mazeArray.length; i++) {
+      for (int j=0; j<TechProject.proj.maze.mazeArray[0].length; j++) {
+        if (TechProject.proj.maze.mazeArray[i][j].equals("+")) {
+          start=new ASharp(i,j,0);
+        }
+      }
+    }
+      while (ASharp.changed) {
+        changed=false;
+        start.step();
+      }
+      TechProject.proj.maze.mazeArray[start.row][start.col]="+";
+    }
+}

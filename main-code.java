@@ -183,11 +183,13 @@ class MazePanel extends JPanel implements Runnable{
             //bad a# space
             graf.setColor(new Color(129,129,129));
             graf.fillRect(x,y,cellWidth,cellHeight);
+            /* Text is ugly
             graf.setColor(Color.RED);
             FontMetrics met=getFontMetrics(font);
             int a=x + (cellWidth - met.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
             int b=y + (cellHeight/2);
             graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),a,b);
+            */
             //show distance
             break;
             case ':':
@@ -199,11 +201,13 @@ class MazePanel extends JPanel implements Runnable{
             //possible A#
             graf.setColor(Color.BLUE);
             graf.fillRect(x,y,cellWidth,cellHeight);
+            /*
             graf.setColor(Color.RED);
             FontMetrics mat=getFontMetrics(font);
             int c=x + (cellWidth - mat.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
             int d=y + (cellHeight/2);
             graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),c,d);
+            */
             break;
             case '*':
             //possible path
@@ -431,29 +435,29 @@ class ASharp {
   public boolean step() {
     boolean isValid=false;
     if (children.size()==0) {
-      if (col!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals(".")) {
-        children.add(new ASharp(row,col-2,dist+1));
+      if (col!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals(".") && TechProject.proj.maze.mazeArray[row][col-1].equals(".")) {
+        children.add(new ASharp(row,col-2,dist+2));
         isValid=true;
         changed=true;
         TechProject.proj.maze.mazeArray[row][col-2]="t" + (dist+2);
         TechProject.proj.maze.mazeArray[row][col-1]="t" + (dist+1);
       }
-      if (col!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals(".")) {
-        children.add(new ASharp(row,col+2,dist+1));
+      if (col!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals(".") && TechProject.proj.maze.mazeArray[row][col+1].equals(".")) {
+        children.add(new ASharp(row,col+2,dist+2));
         isValid=true;
         changed=true;
         TechProject.proj.maze.mazeArray[row][col+2]="t" + (dist+2);
         TechProject.proj.maze.mazeArray[row][col+1]="t" + (dist+1);
       }
-      if (row!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals(".")) {
-        children.add(new ASharp(row-2,col,dist+1));
+      if (row!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals(".") && TechProject.proj.maze.mazeArray[row-1][col].equals(".")) {
+        children.add(new ASharp(row-2,col,dist+2));
         isValid=true;
         changed=true;
         TechProject.proj.maze.mazeArray[row-2][col]="t" + (dist+2);
         TechProject.proj.maze.mazeArray[row-1][col]="t" + (dist+1);
       }
-      if (row!=TechProject.proj.maze.mazeArray.length-2 && TechProject.proj.maze.mazeArray[row+2][col].equals(".")) {
-        children.add(new ASharp(row+2,col,dist+1));
+      if (row!=TechProject.proj.maze.mazeArray.length-2 && TechProject.proj.maze.mazeArray[row+2][col].equals(".") && TechProject.proj.maze.mazeArray[row+1][col].equals(".")) {
+        children.add(new ASharp(row+2,col,dist+2));
         isValid=true;
         changed=true;
         TechProject.proj.maze.mazeArray[row+2][col]="t" + (dist+2);
@@ -464,14 +468,34 @@ class ASharp {
       if (((ASharp)children.get(i)).valid && ((ASharp)children.get(i)).step()) isValid=true;
     }
     }
-    if ((col!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals("-")) || (col!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals("-")) || (row!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals("-")) || (row!=TechProject.proj.maze.mazeArray.length-2 && TechProject.proj.maze.mazeArray[row+2][col].equals("-"))) {
+    if ((col!=1 && TechProject.proj.maze.mazeArray[row][col-2].equals("-")) && (TechProject.proj.maze.mazeArray[row][col-1].equals(".") || TechProject.proj.maze.mazeArray[row][col-1].charAt(0)=='t')) {
       isValid=true;
       distToStart=Math.max(dist+2,distToStart);
+      TechProject.proj.maze.mazeArray[row][col-1]="t" + dist+1;
+    }
+    if ((col!=TechProject.proj.maze.mazeArray[0].length-2 && TechProject.proj.maze.mazeArray[row][col+2].equals("-"))&& (TechProject.proj.maze.mazeArray[row][col+1].equals(".")  || TechProject.proj.maze.mazeArray[row][col+1].charAt(0)=='t')) {
+      isValid=true;
+      distToStart=Math.max(dist+2,distToStart);
+      TechProject.proj.maze.mazeArray[row][col+1]="t" + dist+1;
+    }
+    if ((row!=1 && TechProject.proj.maze.mazeArray[row-2][col].equals("-"))&& (TechProject.proj.maze.mazeArray[row-1][col].equals(".") || TechProject.proj.maze.mazeArray[row-1][col].charAt(0)=='t')) {
+      isValid=true;
+      distToStart=Math.max(dist+2,distToStart);
+      TechProject.proj.maze.mazeArray[row-1][col]="t" + dist+1;
+    }
+    if ((row!=TechProject.proj.maze.mazeArray.length-2 && TechProject.proj.maze.mazeArray[row+2][col].equals("-")) && (TechProject.proj.maze.mazeArray[row+1][col].equals(".") || TechProject.proj.maze.mazeArray[row+1][col].charAt(0)=='t')) {
+      isValid=true;
+      distToStart=Math.max(dist+2,distToStart);
+      TechProject.proj.maze.mazeArray[row+1][col]="t" + dist+1;
     }
     if (isValid) {
       TechProject.proj.maze.mazeArray[row][col]="t" + dist;
     } else {
       TechProject.proj.maze.mazeArray[row][col]="f"+dist;
+    }
+    for (int i=0; i<children.size(); i++) {
+      ASharp a=(ASharp)children.get(i);
+      if (!a.valid) TechProject.proj.maze.mazeArray[(row+a.row)/2][(col+a.col)/2]="f" + dist+1;
     }
     TechProject.proj.maze.repaint();
     valid=isValid;
@@ -479,6 +503,7 @@ class ASharp {
   }
   static void ASharpSolve() {
     ASharp start=new ASharp(0,0,0);
+    distToStart=0;
     changed=true;
     for (int i=0; i<TechProject.proj.maze.mazeArray.length; i++) {
       for (int j=0; j<TechProject.proj.maze.mazeArray[0].length; j++) {
@@ -492,7 +517,7 @@ class ASharp {
         start.step();
         TechProject.proj.maze.repaint();
         try {
-        Thread.sleep(TechProject.proj.maze.slowmo ? 50000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length):200000/(TechProject.proj.maze.mazeArray.length*TechProject.proj.maze.mazeArray[0].length));
+        Thread.sleep(TechProject.proj.maze.slowmo ? 30000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length):200000/(TechProject.proj.maze.mazeArray.length*TechProject.proj.maze.mazeArray[0].length));
       } catch (Exception e) {
       }
       }

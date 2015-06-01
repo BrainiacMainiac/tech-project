@@ -26,7 +26,7 @@ class TechProject extends JFrame implements ActionListener
         String s=maze.mazeArray[i][a];
         if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
       }
-    } 
+    }
     repaint();
     } else {
     mazebutton.setEnabled(false);
@@ -37,7 +37,7 @@ class TechProject extends JFrame implements ActionListener
         String s=maze.mazeArray[i][a];
         if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
       }
-    } 
+    }
     Object sor=e.getSource();
     if (sor==mazebutton) {
       String item=(String) generatemethod.getSelectedItem();
@@ -111,7 +111,7 @@ class MazePanel extends JPanel implements Runnable{
   final static byte A_SHARP=5;
   byte mode;
   boolean slowmo=false;
-  /* 
+  /*
   .=open
   /=wall
   +=start
@@ -158,7 +158,7 @@ class MazePanel extends JPanel implements Runnable{
     graf.setFont(font);
     cellHeight=rect.height/mazeArray.length;
     cellWidth=rect.width/mazeArray[0].length;
-    
+
     for (int row=0; row<mazeArray.length; row++) {
       for (int col=0; col<mazeArray[0].length; col++) {
         int x=col*cellWidth;
@@ -333,7 +333,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
       somethingChanged = false;
       for(int i = 0; i < mazeArray.length; i++){
         for(int j = 0; j < mazeArray[i].length; j++){
-          if (mazeArray[i][j].equals(".")){ 
+          if (mazeArray[i][j].equals(".")){
             int walls = 0;
             if (mazeArray[i][j + 1] == "/" || mazeArray[i][j+1] == "x") {
               walls++;
@@ -418,7 +418,7 @@ public void DFS(int row, int col) {
     }
 }
 }
-    
+
 }
 class ASharp {
   ArrayList children=new ArrayList();

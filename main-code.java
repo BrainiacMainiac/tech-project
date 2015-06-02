@@ -259,7 +259,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
     }
     repaint();
     try {
-    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 20000/(mazeArray.length*mazeArray[0].length)));
+    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 0));
     } catch (Exception e) {
     }
     boolean up=false;
@@ -300,7 +300,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
     }
     repaint();
     try {
-    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 20000/(mazeArray.length*mazeArray[0].length)));
+    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 0));
     } catch (Exception e) {
     }
     generate(horLine,vertLine,rowDif,colDif);
@@ -351,7 +351,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
               mazeArray[i][j] = "x";
               somethingChanged = true;
               try {
-              Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):50000/(mazeArray.length*mazeArray[0].length));
+              Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):0);
               } catch (Exception e) {
               }
               repaint();
@@ -377,7 +377,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
 public void DFS(int row, int col) {
     repaint();
     try {
-    Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):50000/(mazeArray.length*mazeArray[0].length));
+    Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):0);
     } catch (Exception e) {
     }
     ArrayList li = new ArrayList();
@@ -517,7 +517,7 @@ class ASharp {
         start.step();
         TechProject.proj.maze.repaint();
         try {
-        Thread.sleep(TechProject.proj.maze.slowmo ? 30000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length):200000/(TechProject.proj.maze.mazeArray.length*TechProject.proj.maze.mazeArray[0].length));
+        Thread.sleep(TechProject.proj.maze.slowmo ? 30000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length):0);
       } catch (Exception e) {
       }
       }

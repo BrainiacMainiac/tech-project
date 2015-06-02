@@ -18,7 +18,10 @@ public void genPrim(int rows, int cols) {
       if (mazeArray[row][col+1].equals("/") && col!=cols-2) walls.add(new PrimWall(row,col+1,PrimWall.RIGHT));
       if (mazeArray[row-1][col].equals("/") && row!=1) walls.add(new PrimWall(row-1,col,PrimWall.UP));
       if (mazeArray[row][col-1].equals("/") && col!=1) walls.add(new PrimWall(row,col-1,PrimWall.LEFT));
-      Thread.sleep()
+      try {
+    Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):0);
+    } catch (Exception e) {
+    }
     }
     walls.remove(w);
   }

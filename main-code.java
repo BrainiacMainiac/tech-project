@@ -432,6 +432,7 @@ public void genPrim(int rows, int cols) {
   }
   ArrayList walls=new ArrayList(60);
   walls.add(new PrimWall(2,1,PrimWall.DOWN));
+  mazeArray[1][1]=".";
   while (walls.size()>0) {
     int n=(int)Math.floor(Math.random()*(walls.size()-1));
     PrimWall w=(PrimWall) walls.get(n);
@@ -446,7 +447,7 @@ public void genPrim(int rows, int cols) {
       if (mazeArray[row][col-1].equals("/") && col!=1) walls.add(new PrimWall(row,col-1,PrimWall.LEFT));
       repaint();
       try {
-    Thread.sleep(slowmo ? 6000/(mazeArray.length+mazeArray[0].length):0);
+    Thread.sleep(slowmo ? 4000/(mazeArray.length+mazeArray[0].length):0);
     } catch (Exception e) {
     }
     }

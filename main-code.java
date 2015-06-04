@@ -21,26 +21,23 @@ class TechProject extends JFrame implements ActionListener
   public static void main(String[] args){
     int x=0;
   }
-  public void actionPerformed(ActionEvent e) {
-    maze.mode=-4;
-    if (e.getSource()==clear) {
-      for (int i=0; i<maze.mazeArray.length; i++) {
-      for (int a=0; a<maze.mazeArray[0].length; a++) {
-        String s=maze.mazeArray[i][a];
-        if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
-      }
-    }
-    repaint();
-    } else {
-    mazebutton.setEnabled(false);
-    solvebutton.setEnabled(false);
-    clear.setEnabled(false);
+  public void clearMaze() {
     for (int i=0; i<maze.mazeArray.length; i++) {
       for (int a=0; a<maze.mazeArray[0].length; a++) {
         String s=maze.mazeArray[i][a];
         if (s.equals("x") || s.charAt(0)=='t' || s.charAt(0)=='f' || s.equals("*") || s.equals(":")) maze.mazeArray[i][a]=".";
       }
     }
+  }
+  public void actionPerformed(ActionEvent e) {
+    maze.mode=-4;
+    if (e.getSource()==clear) {
+    clearMaze();
+    repaint();
+    } else {
+    mazebutton.setEnabled(false);
+    solvebutton.setEnabled(false);
+    clear.setEnabled(false);
     Object sor=e.getSource();
     if (sor==mazebutton) {
       String item=(String) generatemethod.getSelectedItem();
@@ -49,6 +46,7 @@ class TechProject extends JFrame implements ActionListener
       if (item.equals("Prim Algorithm")) maze.mode=MazePanel.GEN_PRIM;
     }
     if (sor==solvebutton) {
+      clearMaze();
       String item=(String) solvemethod.getSelectedItem();
       if (item.equals("Dead end filling"))  maze.mode=MazePanel.DEAD_END;
       if (item.equals("Tramaux Algorithm")) maze.mode=MazePanel.TREM;

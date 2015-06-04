@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.image.BufferedImage;
 class TechProject extends JFrame implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
@@ -10,16 +11,18 @@ class TechProject extends JFrame implements ActionListener
   static TechProject proj=new TechProject();
   JButton mazebutton=new JButton("Generate a new maze");
   JButton solvebutton=new JButton("Solve the Maze");
-  JSlider width=new JSlider(2,200);
-  JSlider height=new JSlider(2,200);
+  JSlider width=new JSlider(5,200);
+  JSlider height=new JSlider(5,200);
   JComboBox generatemethod;
   JComboBox solvemethod;
+  JButton saveButton=new JButton("Save this maze");
   JCheckBox slow=new JCheckBox("Slow Mode");
   JButton clear=new JButton("Restore the maze");
   public static void main(String[] args){
     int x=0;
   }
   public void actionPerformed(ActionEvent e) {
+    maze.mode=-4;
     if (e.getSource()==clear) {
       for (int i=0; i<maze.mazeArray.length; i++) {
       for (int a=0; a<maze.mazeArray[0].length; a++) {
@@ -51,6 +54,14 @@ class TechProject extends JFrame implements ActionListener
       if (item.equals("Tramaux Algorithm")) maze.mode=MazePanel.TREM;
       if (item.equals("A# Search")) maze.mode=MazePanel.A_SHARP;
     }
+    if (sor==saveButton) {
+      BufferedImage img=new BufferedImage(maze.mazeArray[0].length*10,maze.mazeArray.length*10,BufferedImage.TYPE_INT_ARGB);
+      Graphics g=img.getGraphics();
+      maze.paintComponent(g);
+    }
+    if (sor==slow) {
+      maze.slowmo=slow.isSelected();
+    }
     maze.current=new Thread(maze);
     maze.current.start();
     }
@@ -64,8 +75,8 @@ class TechProject extends JFrame implements ActionListener
     bigpanel.setLayout(lay);
     width.setPaintLabels(true);
     width.setPaintTicks(true);
-    width.setMajorTickSpacing(66);
-    height.setMajorTickSpacing(66);
+    width.setMajorTickSpacing(65);
+    height.setMajorTickSpacing(65);
     height.setPaintLabels(true);
     height.setPaintTicks(true);
     String[] generates={"Depth-First", "Prim Algorithm", "Recursive Division"};
@@ -75,15 +86,17 @@ class TechProject extends JFrame implements ActionListener
     mazebutton.addActionListener(this);
     solvebutton.addActionListener(this);
     clear.addActionListener(this);
+    slow.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
-    bottom.setLayout(new GridLayout(2,6,10,10));
+    bottom.setLayout(new GridLayout(2,7,10,10));
     bottom.add(new JLabel("Width:"));
     bottom.add(width);
     bottom.add(new JLabel("Generation Algorithm:"));
     bottom.add(generatemethod);
     bottom.add(mazebutton);
     bottom.add(clear);
+    bottom.add(saveButton);
     bottom.add(new JLabel("Height:"));
     bottom.add(height);
     bottom.add(new JLabel("Solving Algorithm:"));
@@ -145,9 +158,14 @@ class MazePanel extends JPanel implements Runnable{
       int hei=TechProject.proj.height.getValue()*2+1;
       genPrim(hei,wid);
     }
+    if (mode==TREM) {
+      tremSolve();
+      repaint();
+    }
     TechProject.proj.mazebutton.setEnabled(true);
     TechProject.proj.solvebutton.setEnabled(true);
     TechProject.proj.clear.setEnabled(true);
+    repaint();
   }
   public MazePanel() {
     super();
@@ -382,7 +400,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
 public void DFS(int row, int col) {
     repaint();
     try {
-    Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):0);
+    Thread.sleep(slowmo ? 4000/(mazeArray.length+mazeArray[0].length):0);
     } catch (Exception e) {
     }
     ArrayList li = new ArrayList();
@@ -457,7 +475,99 @@ public void genPrim(int rows, int cols) {
   mazeArray[rows-2][cols-2]="-";
   repaint();
 }
-
+  public boolean tremaux(int row, int col) {
+    // *=current :=wrong
+    boolean valid=false;
+    mazeArray[row][col]="*";
+    repaint();
+  try {
+  Thread.sleep(slowmo ? 3000/(mazeArray.length+mazeArray[0].length):0);
+  } catch (Exception e) {
+  }
+    ArrayList li = new ArrayList();
+    li.add((byte)2);
+    li.add((byte)3);
+    li.add((byte)0);
+    li.add((byte)1);
+    Collections.shuffle(li);
+    for (int i=0; i<4; i++) {
+    byte test =(byte) li.get(i);
+    if (test==2) {
+        if (col!=1 && mazeArray[row][col-2].equals(".") && mazeArray[row][col-1].equals(".")) {
+            mazeArray[row][col-1]="*";
+            if (tremaux(row,col-2)) {
+              valid=true;
+            } else {
+              mazeArray[row][col-1]=":";
+            }
+        }
+    }
+    if (test==1) {
+        if (col!=mazeArray[0].length-2 && mazeArray[row][col+2].equals(".") && mazeArray[row][col+1].equals(".")) {
+            mazeArray[row][col+1]="*";
+            if (tremaux(row,col+2)) {
+              valid=true;
+            } else {
+              mazeArray[row][col+1]=":";
+            }
+        }
+    }
+    if (test==0) {
+        if (row!=1 && mazeArray[row-2][col].equals(".") && mazeArray[row-1][col].equals(".")) {
+            mazeArray[row-1][col]="*";
+            if (tremaux(row-2,col)) {
+              valid=true;
+            } else {
+              mazeArray[row-1][col]=":";
+            }
+        }
+    }
+    if (test==3) {
+        if (row!=mazeArray.length-2 && mazeArray[row+2][col].equals(".") && mazeArray[row+1][col].equals(".")) {
+            mazeArray[row+1][col]="*";
+            if (tremaux(row+2,col)) {
+              valid=true;
+            } else {
+              mazeArray[row+1][col]=":";
+            }
+        }
+    }
+    }
+    if (col!=1 && mazeArray[row][col-2].equals("-") && mazeArray[row][col-1].equals(".")) {
+      valid=true;
+      mazeArray[row][col-1]="*";
+    }
+    if (col!=mazeArray[0].length-2 && mazeArray[row][col+2].equals("-") && mazeArray[row][col+1].equals(".")) {
+      valid=true;
+      mazeArray[row][col+1]="*";
+    }
+    if (row!=1 && mazeArray[row-2][col].equals("-") && mazeArray[row-1][col].equals(".")) {
+      valid=true;
+      mazeArray[row-1][col]="*";
+    }
+    if (row!=mazeArray.length-2 && mazeArray[row+2][col].equals("-") && mazeArray[row+1][col].equals(".")) {
+      valid=true;
+      mazeArray[row+1][col]="*";
+    }
+  mazeArray[row][col]=valid ? "*": ":";
+  repaint();
+  try {
+  Thread.sleep(slowmo ? 3000/(mazeArray.length+mazeArray[0].length):0);
+  } catch (Exception e) {
+  }
+  return valid;
+  }
+  public void tremSolve() {
+    for (int i=0; i<mazeArray.length; i++) {
+      for (int j=0; j<mazeArray[0].length; j++) {
+        if (mazeArray[i][j].equals("+")) {
+          tremaux(i,j);
+          mazeArray[i][j]="+";
+          repaint();
+        }
+      }
+    }
+  }
 }
 class ASharp {
   ArrayList children=new ArrayList();

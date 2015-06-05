@@ -778,3 +778,11 @@ class PrimWall {
     if (direction==RIGHT) colDif=1;
   }
 }
+class HelpPanel extends JFrame {
+  HelpPanel() {
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setSize(600,600);
+    JPanel content=new JPanel();
+    content.setLayout(new GridLayout());
+  }
+}

@@ -3,7 +3,9 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.util.*;
+import java.io.*;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 class TechProject extends JFrame implements ActionListener
 {
   //Instance variables/objects which all methods must be able to see
@@ -53,9 +55,7 @@ class TechProject extends JFrame implements ActionListener
       if (item.equals("A# Search")) maze.mode=MazePanel.A_SHARP;
     }
     if (sor==saveButton) {
-      BufferedImage img=new BufferedImage(maze.mazeArray[0].length*10,maze.mazeArray.length*10,BufferedImage.TYPE_INT_ARGB);
-      Graphics g=img.getGraphics();
-      maze.paintComponent(g);
+      maze.writeImage();
     }
     if (sor==slow) {
       maze.slowmo=slow.isSelected();
@@ -85,6 +85,7 @@ class TechProject extends JFrame implements ActionListener
     solvebutton.addActionListener(this);
     clear.addActionListener(this);
     slow.addActionListener(this);
+    saveButton.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
     bottom.setLayout(new GridLayout(2,7,10,10));
@@ -170,6 +171,90 @@ class MazePanel extends JPanel implements Runnable{
     //this is for testing
     mazeArray= new String[][]{
     };
+  }
+  public void writeImage() {
+    BufferedImage img=new BufferedImage(mazeArray[0].length*20,mazeArray.length*20,BufferedImage.TYPE_INT_RGB);
+    Graphics2D graf=img.createGraphics();
+    graf.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+    cellHeight=20;
+    cellWidth=20;
+
+    for (int row=0; row<mazeArray.length; row++) {
+      for (int col=0; col<mazeArray[0].length; col++) {
+        int x=col*cellWidth;
+        int y=row*cellHeight;
+        char p=mazeArray[row][col].charAt(0);
+        switch (p) {
+          case '.':
+            graf.setColor(Color.WHITE);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+          case '/':
+            //wall
+            graf.setColor(Color.BLACK);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+          case 'x':
+            //dead end
+            graf.setColor(Color.RED);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+            case 'f':
+            //bad a# space
+            graf.setColor(new Color(129,129,129));
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            /* Text is ugly
+            graf.setColor(Color.RED);
+            FontMetrics met=getFontMetrics(font);
+            int a=x + (cellWidth - met.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
+            int b=y + (cellHeight/2);
+            graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),a,b);
+            */
+            //show distance
+            break;
+            case ':':
+            //wrong path
+            graf.setColor(new Color(129,129,129));
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+            case 't':
+            //possible A#
+            graf.setColor(Color.BLUE);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            /*
+            graf.setColor(Color.RED);
+            FontMetrics mat=getFontMetrics(font);
+            int c=x + (cellWidth - mat.stringWidth(mazeArray[row][col].substring(1,mazeArray[row][col].length())))/2;
+            int d=y + (cellHeight/2);
+            graf.drawString(mazeArray[row][col].substring(1,mazeArray[row][col].length()),c,d);
+            */
+            break;
+            case '*':
+            //possible path
+            graf.setColor(Color.BLUE);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+            case '+':
+            //start
+            graf.setColor(Color.GREEN);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+            case '-':
+            //end
+            graf.setColor(Color.GREEN);
+            graf.fillRect(x,y,cellWidth,cellHeight);
+            break;
+        }
+      }
+      }
+      graf.dispose();
+      String loc=JOptionPane.showInputDialog(null, "Choose the file name of the image. The image will be saved in the save location as the .class file.");
+      File out=new File(loc + ".jpg");
+      try {
+      ImageIO.write(img, "jpg", out);
+      } catch (IOException e) {
+        System.out.println("Error: " + e.toString());
+      }
   }
   public void paintComponent(Graphics g) {
     Graphics2D graf=(Graphics2D) g;

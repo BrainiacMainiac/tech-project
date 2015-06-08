@@ -798,6 +798,6 @@ class HelpPanel extends JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(600,600);
     JPanel content=new JPanel();
-    content.setLayout(new GridLayout());
+    content.setLayout(new GridLayout(4,3));
   }
 }

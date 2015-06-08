@@ -365,7 +365,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
     }
     repaint();
     try {
-    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 0));
+    if (slowmo) Thread.sleep((30000/(mazeArray.length+mazeArray[0].length)));
     } catch (Exception e) {
     }
     boolean up=false;
@@ -406,7 +406,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
     }
     repaint();
     try {
-    Thread.sleep((slowmo ? 30000/(mazeArray.length+mazeArray[0].length) : 0));
+    if (slowmo) Thread.sleep((30000/(mazeArray.length+mazeArray[0].length)));
     } catch (Exception e) {
     }
     generate(horLine,vertLine,rowDif,colDif);
@@ -457,7 +457,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
               mazeArray[i][j] = "x";
               somethingChanged = true;
               try {
-              Thread.sleep(slowmo ? 5000/(mazeArray.length+mazeArray[0].length):0);
+              if (slowmo) Thread.sleep(5000/(mazeArray.length+mazeArray[0].length));
               } catch (Exception e) {
               }
               repaint();
@@ -483,7 +483,7 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
 public void DFS(int row, int col) {
     repaint();
     try {
-    Thread.sleep(slowmo ? 4000/(mazeArray.length+mazeArray[0].length):0);
+    if (slowmo) Thread.sleep(4000/(mazeArray.length+mazeArray[0].length));
     } catch (Exception e) {
     }
     ArrayList li = new ArrayList();
@@ -548,7 +548,7 @@ public void genPrim(int rows, int cols) {
       if (mazeArray[row][col-1].equals("/") && col!=1) walls.add(new PrimWall(row,col-1,PrimWall.LEFT));
       repaint();
       try {
-    Thread.sleep(slowmo ? 4000/(mazeArray.length+mazeArray[0].length):0);
+    if (slowmo)Thread.sleep(4000/(mazeArray.length+mazeArray[0].length));
     } catch (Exception e) {
     }
     }
@@ -564,7 +564,7 @@ public void genPrim(int rows, int cols) {
     mazeArray[row][col]="*";
     repaint();
   try {
-  Thread.sleep(slowmo ? 3000/(mazeArray.length+mazeArray[0].length):0);
+  if(slowmo) Thread.sleep(3000/(mazeArray.length+mazeArray[0].length));
   } catch (Exception e) {
   }
     ArrayList li = new ArrayList();
@@ -635,7 +635,7 @@ public void genPrim(int rows, int cols) {
   mazeArray[row][col]=valid ? "*": ":";
   repaint();
   try {
-  Thread.sleep(slowmo ? 3000/(mazeArray.length+mazeArray[0].length):0);
+  if (slowmo)Thread.sleep(3000/(mazeArray.length+mazeArray[0].length));
   } catch (Exception e) {
   }
   return valid;
@@ -737,23 +737,38 @@ class ASharp {
     ASharp start=new ASharp(0,0,0);
     distToStart=0;
     changed=true;
+    int startRow=0;
+    int startCol=0;
     for (int i=0; i<TechProject.proj.maze.mazeArray.length; i++) {
       for (int j=0; j<TechProject.proj.maze.mazeArray[0].length; j++) {
         if (TechProject.proj.maze.mazeArray[i][j].equals("+")) {
           start=new ASharp(i,j,0);
+          startRow=i;
+          startCol=j;
         }
       }
     }
       while (ASharp.changed) {
         changed=false;
         start.step();
+        int tChils=0;
+        ASharp pos=new ASharp(0,0,0);
+        for (int i=0; i<start.children.size(); i++) {
+          if (((ASharp)start.children.get(i)).valid) {
+            tChils++;
+            pos=(ASharp) start.children.get(i);
+          }
+        }
+        if (tChils==1) {
+          start=pos;
+        }
         TechProject.proj.maze.repaint();
         try {
-        Thread.sleep(TechProject.proj.maze.slowmo ? 30000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length):0);
+        if (TechProject.proj.maze.slowmo) Thread.sleep(30000/(TechProject.proj.maze.mazeArray.length+TechProject.proj.maze.mazeArray[0].length));
       } catch (Exception e) {
       }
       }
-      TechProject.proj.maze.mazeArray[start.row][start.col]="+";
+      TechProject.proj.maze.mazeArray[startRow][startCol]="+";
       JOptionPane.showMessageDialog(null,"The end was reached in " + distToStart + " spaces.");
       TechProject.proj.maze.repaint();
     }

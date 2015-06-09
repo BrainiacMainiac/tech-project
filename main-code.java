@@ -38,11 +38,11 @@ class TechProject extends JFrame implements ActionListener
     clearMaze();
     repaint();
     } else {
-    mazebutton.setEnabled(false);
-    solvebutton.setEnabled(false);
-    clear.setEnabled(false);
     Object sor=e.getSource();
     if (sor==mazebutton) {
+      mazebutton.setEnabled(false);
+    solvebutton.setEnabled(false);
+    clear.setEnabled(false);
       String item=(String) generatemethod.getSelectedItem();
       if (item.equals("Recursive Division")) maze.mode=MazePanel.GENDIV;
       if (item.equals("Depth-First")) maze.mode=MazePanel.GEN_DFS;
@@ -50,6 +50,9 @@ class TechProject extends JFrame implements ActionListener
     }
     if (sor==solvebutton) {
       clearMaze();
+      mazebutton.setEnabled(false);
+    solvebutton.setEnabled(false);
+    clear.setEnabled(false);
       String item=(String) solvemethod.getSelectedItem();
       if (item.equals("Dead end filling"))  maze.mode=MazePanel.DEAD_END;
       if (item.equals("Tramaux Algorithm")) maze.mode=MazePanel.TREM;
@@ -144,30 +147,46 @@ class MazePanel extends JPanel implements Runnable{
       int wid=TechProject.proj.width.getValue()*2+1;
       int hei=TechProject.proj.height.getValue()*2+1;
       generateDivision(hei,wid);
+      TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
     }
     if (mode==DEAD_END) {
       deadEndSolve();
+      TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
     }
     if (mode==GEN_DFS) {
       int wid=TechProject.proj.width.getValue()*2+1;
       int hei=TechProject.proj.height.getValue()*2+1;
       generateDFS(hei,wid);
+      TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
     }
     if (mode==A_SHARP) {
       ASharp.ASharpSolve();
+      TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
     }
     if (mode==GEN_PRIM) {
       int wid=TechProject.proj.width.getValue()*2+1;
       int hei=TechProject.proj.height.getValue()*2+1;
       genPrim(hei,wid);
+      TechProject.proj.mazebutton.setEnabled(true);
+    TechProject.proj.solvebutton.setEnabled(true);
+    TechProject.proj.clear.setEnabled(true);
     }
     if (mode==TREM) {
       tremSolve();
       repaint();
-    }
-    TechProject.proj.mazebutton.setEnabled(true);
+      TechProject.proj.mazebutton.setEnabled(true);
     TechProject.proj.solvebutton.setEnabled(true);
     TechProject.proj.clear.setEnabled(true);
+    }
+    
     repaint();
   }
   public MazePanel() {
@@ -440,37 +459,35 @@ public void generate(int rows, int cols,int rowDif, int colDif) {
   }
   public void deadEndSolve() {
     boolean somethingChanged = true;
-    while(somethingChanged) {
-      somethingChanged = false;
-      for(int i = 0; i < mazeArray.length; i++){
-        for(int j = 0; j < mazeArray[i].length; j++){
-          if (mazeArray[i][j].equals(".")){
-            int walls = 0;
-            if (mazeArray[i][j + 1] == "/" || mazeArray[i][j+1] == "x") {
-              walls++;
-            }
-            if (mazeArray[i][j - 1] == "/" || mazeArray[i][j-1] == "x") {
-              walls++;
-            }
-            if (mazeArray[i + 1][j] == "/" || mazeArray[i + 1][j] == "x") {
-              walls++;
-            }
-            if (mazeArray[i - 1][j] == "/" || mazeArray[i - 1][j] == "x") {
-              walls++;
-            }
-            if (walls >= 3){
-              mazeArray[i][j] = "x";
-              somethingChanged = true;
-              try {
-              if (slowmo) Thread.sleep(5000/(mazeArray.length+mazeArray[0].length));
-              } catch (Exception e) {
-              }
-              repaint();
-              }
-            }
+    ArrayList ops=new ArrayList(500);
+    for (int i=0; i<mazeArray.length; i++) {
+      for (int j=0; j<mazeArray[0].length; j++) {
+        if (mazeArray[i][j].equals(".")) ops.add(new Point(i,j));
+      }
+    }
+    while (somethingChanged) {
+      somethingChanged=false;
+      for (int i=0; i<ops.size(); i++) {
+        int walls=0;
+        Point p=(Point) ops.get(i);
+        if (mazeArray[p.x+1][p.y].equals("/") || mazeArray[p.x+1][p.y].equals("x")) walls++;
+        if (mazeArray[p.x-1][p.y].equals("/") || mazeArray[p.x-1][p.y].equals("x")) walls++;
+        if (mazeArray[p.x][p.y+1].equals("/") || mazeArray[p.x][p.y+1].equals("x")) walls++;
+        if (mazeArray[p.x][p.y-1].equals("/") || mazeArray[p.x][p.y-1].equals("x")) walls++;
+        if (walls>=3) {
+          mazeArray[p.x][p.y]="x";
+          somethingChanged=true;
+          ops.remove(p);
+          repaint();
+          if (slowmo) {
+            try {
+              Thread.sleep(400/mazeArray.length*mazeArray[0].length);
+            } catch (Exception e) {
+          }
           }
         }
       }
+    }
   }
   public void generateDFS(int rows, int cols) {
     mazeArray = new String[rows][cols];

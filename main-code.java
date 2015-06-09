@@ -20,6 +20,7 @@ class TechProject extends JFrame implements ActionListener
   JButton saveButton=new JButton("Save this maze");
   JCheckBox slow=new JCheckBox("Slow Mode");
   JButton clear=new JButton("Restore the maze");
+  JButton help=new JButton("Help");
   public static void main(String[] args){
     int x=0;
   }
@@ -60,6 +61,7 @@ class TechProject extends JFrame implements ActionListener
     if (sor==slow) {
       maze.slowmo=slow.isSelected();
     }
+    if (sor==help) new HelpPanel();
     maze.current=new Thread(maze);
     maze.current.start();
     }
@@ -86,6 +88,7 @@ class TechProject extends JFrame implements ActionListener
     clear.addActionListener(this);
     slow.addActionListener(this);
     saveButton.addActionListener(this);
+    help.addActionListener(this);
     //Adding stuff to the bottom panel (all but the maze)
     JPanel bottom=new JPanel();
     bottom.setLayout(new GridLayout(2,7,10,10));
@@ -102,6 +105,7 @@ class TechProject extends JFrame implements ActionListener
     bottom.add(solvemethod);
     bottom.add(solvebutton);
     bottom.add(slow);
+    bottom.add(help);
     bigpanel.add(maze,BorderLayout.CENTER);
     bigpanel.add(bottom,BorderLayout.SOUTH);
     add(bigpanel);
@@ -173,6 +177,8 @@ class MazePanel extends JPanel implements Runnable{
     };
   }
   public void writeImage() {
+    String loc=JOptionPane.showInputDialog(null, "Choose the file name of the image. The image will be saved in the save location as the .class file.");
+    if (loc==null) return;
     BufferedImage img=new BufferedImage(mazeArray[0].length*20,mazeArray.length*20,BufferedImage.TYPE_INT_RGB);
     Graphics2D graf=img.createGraphics();
     graf.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -248,7 +254,6 @@ class MazePanel extends JPanel implements Runnable{
       }
       }
       graf.dispose();
-      String loc=JOptionPane.showInputDialog(null, "Choose the file name of the image. The image will be saved in the save location as the .class file.");
       File out=new File(loc + ".jpg");
       try {
       ImageIO.write(img, "jpg", out);
@@ -795,11 +800,36 @@ class PrimWall {
 }
 class HelpPanel extends JFrame {
   HelpPanel() {
+    super("Help");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(600,600);
     JPanel content=new JPanel();
-    content.setLayout(new GridLayout(4,3));
-    JLabel sliders=new JLabel("");
-    JLabel sliders=new JLabel("");
+    content.setLayout(new GridLayout(4,3,10,10));
+    JLabel sliders=new JLabel("<html><p>Height and Width Sliders: </p></html>"); // Repeat the html stuff for all subsequent messages in HelpPanel
+    JLabel slowMode=new JLabel("<html><p>Slow mode: </p></html>");
+    JLabel saveInfo=new JLabel("<html><p>Save Button: </p></html>");
+    JLabel clearInfo=new JLabel("<html><p>Clear the Maze: </p></html>");
+    JLabel genInfo=new JLabel("<html><p>Generate Button: </p></html>");
+    JLabel solInfo=new JLabel("<html><p>Solve Button: </p></html>");
+    JLabel trem=new JLabel("<html><p>Tremaux Solving: </p></html>");
+    JLabel aSharp=new JLabel("<html><p>A# Solving: </p></html>");
+    JLabel dead=new JLabel("<html><p>Dead end solving: </p></html>");
+    JLabel prim=new JLabel("<html><p>Prim Generation: </p></html>");
+    JLabel depth=new JLabel("<html><p>Depth Fist Generation: </p></html>");
+    JLabel div=new JLabel("<html><p>Recursive Division Generation: </p></html>");
+    content.add(sliders);
+    content.add(genInfo);
+    content.add(solInfo);
+    content.add(slowMode);
+    content.add(depth);
+    content.add(trem);
+    content.add(clearInfo);
+    content.add(prim);
+    content.add(aSharp);
+    content.add(saveInfo);
+    content.add(div);
+    content.add(dead);
+    add(content);
+    setVisible(true);
   }
 }

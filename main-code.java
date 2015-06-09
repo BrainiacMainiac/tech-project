@@ -799,5 +799,7 @@ class HelpPanel extends JFrame {
     setSize(600,600);
     JPanel content=new JPanel();
     content.setLayout(new GridLayout(4,3));
+    JLabel sliders=new JLabel("");
+    JLabel sliders=new JLabel("");
   }
 }
